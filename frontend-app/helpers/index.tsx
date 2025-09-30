@@ -54,3 +54,20 @@ export const titleToIcon = (title: string) => {
     return icon
 
 }
+
+export const parseTables = (input: string) => {
+    const tableRegex = /\|.*\|\n(\|[-| ]+\|\n)?([\s\S]*?)\|.*\|/g;
+    const tables = input.match(tableRegex);
+    return tables ? cleanUrls(tables.join("\n")) : undefined
+}
+
+
+export const cleanUrls = (input: string) => {
+    const cleanTable = (input.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1')).replace(/!\[.*?<br><br>(.*?)<br><br>.*?\]\(.*?\)/g, '$1');
+    return cleanTable
+}
+
+export const shortAddress = (address: string, first = 6, last = -4) => {
+    if (!address) return ''
+    return `${address.slice(0, first)}...${address.slice(last)}`
+}
