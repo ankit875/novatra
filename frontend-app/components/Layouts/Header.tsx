@@ -4,9 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ChevronDown, ChevronRight, Menu, User } from 'react-feather';
 import { NovatraContext } from '@/hooks/useNovatra';
-// import { getCurrentUser, signIn } from 'aws-amplify/auth';
-// import { shortAddress } from '@/helpers';
-
+import { getCurrentUser, signIn } from 'aws-amplify/auth';
 
 const Header = (props: any) => {
 
@@ -29,20 +27,20 @@ const Header = (props: any) => {
         loadDefault()
     }, [])
 
-    // useEffect(() => {
-    //     (async () => {
-    //         try {
-    //             const { username, userId, signInDetails } = await getCurrentUser();
-    //             setUser({
-    //                 username,
-    //                 userId,
-    //                 ...signInDetails
-    //             })
-    //         } catch (e) {
-    //             setUser(undefined)
-    //         }
-    //     })()
-    // }, [])
+    useEffect(() => {
+        (async () => {
+            try {
+                const { username, userId, signInDetails } = await getCurrentUser();
+                setUser({
+                    username,
+                    userId,
+                    ...signInDetails
+                })
+            } catch (e) {
+                setUser(undefined)
+            }
+        })()
+    }, [])
 
     useEffect(() => {  
         if (user && user.userId) {
@@ -55,7 +53,7 @@ const Header = (props: any) => {
             <div className="container">
                 <div className="flex items-center justify-between py-5 lg:py-0">
                     <Link href="/">
-                        <img src="/assets/images/logo-novatra-3.png" alt="novatra" className=" w-[200px] sm:w-[240px] " />
+                        <img src="/assets/images/logo-legato-2.png" alt="novatra" className=" w-[100px] sm:w-[140px] " />
                     </Link>
                     <div className="flex items-center sm:w-full">
                         <div onClick={() => toggleMenu()} className={`overlay fixed inset-0 z-[51] bg-black/60 lg:hidden ${showMenu ? '' : 'hidden'}`}></div>
@@ -101,12 +99,6 @@ const Header = (props: any) => {
                                         </button>
                                     )}
 
-                                    {user && (
-                                        <div className='text-white hover:text-secondary'>
-                                            {/* {shortAddress(user.userId, 6, -10)} */}
-                                            <User/>
-                                        </div>
-                                    )} 
                                 </Link> 
                             </div>
                         </div>

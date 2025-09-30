@@ -7,7 +7,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic'
  
 const Faq = dynamic(() => import('@/components/Home/Faq'), { ssr: false })
-// const Hero = dynamic(() => import('@/components/Home/Hero'), { ssr: false })
+const Hero = dynamic(() => import('@/components/Home/Hero'), { ssr: false })
 
 // import Features from "@/components/Home/Features"
 
@@ -21,7 +21,7 @@ export default function Index() {
             </Head>
 
             <div className="h-20 bg-black lg:h-[104px]"></div>
-            {/* <Hero /> */}
+            <Hero />
 
             {/* <Features/> */}
             {/* <AboutNew/> */}
