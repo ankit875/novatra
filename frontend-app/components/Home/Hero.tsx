@@ -68,13 +68,13 @@ const Hero = () => {
           Mainnet and Sui launching soon
         </p>
       </BaseModal>
-      <section className="bg-white bg-[url(/assets/images/banner-bg-1.png)]  bg-bottom bg-no-repeat  dark:bg-black">
-        <div className="py-24 dark:bg-gradient-to-r dark:from-[#B476E5]/10 dark:to-[#47BDFF]/10 lg:py-32    ">
-          <div className="container">
-            <div className="mx-2 sm:mx-6  flex">
-              <div className=" mx-auto">
+      <section className="bg-black bg-[url(/assets/images/banner-bg-1.png)] bg-bottom bg-no-repeat">
+        <div className="py-24 bg-gradient-to-r from-[#B476E5]/10 to-[#47BDFF]/10 lg:py-32">
+          <div className="container mx-auto px-6">
+            <div className="flex">
+              <div className="mx-auto text-center">
                 <h1
-                  className="text-4xl  font-extrabold tracking-tight text-white/80  sm:text-5xl md:text-6xl"
+                  className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl"
                   data-aos="fade-up"
                   data-aos-duration="1000"
                 >
@@ -84,12 +84,12 @@ const Hero = () => {
                       and earn with AI
                     </span>
                   </span>
-                  <div className="mt-2">— 10x fun and easy!</div>
+                  <div className="mt-2 text-white">— 10x fun and easy!</div>
                 </h1>
               </div>
             </div>
             <div className="mx-2 sm:mx-6">
-              <p className="mt-[20px] sm:mt-[40px] text-center mx-auto mb-[20px] max-w-[700px]   text-sm sm:text-lg lg:text-xl font-normal sm:font-semibold">
+              <p className="mt-[20px] sm:mt-[40px] text-center mx-auto mb-[20px] max-w-[700px] text-sm sm:text-lg lg:text-xl font-normal sm:font-semibold text-gray">
                 Novatra&apos;s AI tracks major trusted sources, letting you
                 propose any future outcomes and earn when you&apos;re right
               </p>
@@ -98,7 +98,7 @@ const Hero = () => {
               <Link href={`/markets`} className="mx-auto">
                 <button
                   type="button"
-                  className="btn bg-white text-xs sm:text-base flex rounded-lg px-6 py-3 sm:py-4 sm:px-12 flex-row hover:text-black hover:bg-white "
+                  className="btn bg-primary hover:bg-secondary text-white text-xs sm:text-base flex rounded-lg px-6 py-3 sm:py-4 sm:px-12 flex-row transition-colors"
                 >
                   <div className="my-auto">Explore{` `}</div>
                   <ArrowRight size={18} className="mt-[3px] ml-1" />
@@ -124,7 +124,7 @@ const Highlighted = () => {
 
   return (
     <div className="px-6 sm:px-1">
-      <div className="text-center text-secondary font-normal  mb-2 sm:mb-4 text-sm sm:text-base tracking-widest">
+      <div className="text-center text-primary font-normal mb-2 sm:mb-4 text-sm sm:text-base tracking-widest uppercase">
         highlighted markets
       </div>
 
@@ -161,14 +161,14 @@ const Highlighted = () => {
       >
         {outcomes.length === 0 && (
           <div className="grid grid-cols-3 gap-5 max-w-5xl mx-auto">
-            <div className="overflow-hidden   opacity-60">
-              <Skeleton height={120} />
+            <div className="overflow-hidden opacity-60">
+              <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
             </div>
-            <div className="overflow-hidden  opacity-60">
-              <Skeleton height={120} />
+            <div className="overflow-hidden opacity-60">
+              <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
             </div>
-            <div className="overflow-hidden  opacity-60">
-              <Skeleton height={120} />
+            <div className="overflow-hidden opacity-60">
+              <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
             </div>
           </div>
         )}

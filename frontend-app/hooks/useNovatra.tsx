@@ -1,5 +1,5 @@
 import { createContext, useCallback, ReactNode, useMemo, useReducer } from "react"
-// import useDatabase from "./useDatabase";
+import useDatabase from "./useDatabase";
 import useAptos from "./useAptos";
 
 
@@ -36,7 +36,7 @@ const Provider = ({ children }: Props) => {
 
     const { getBalanceUSDC } = useAptos()
 
-    // const { getProfile } = useDatabase()
+    const { getProfile } = useDatabase()
 
     const [values, dispatch] = useReducer(
         (curVal: any, newVal: any) => ({ ...curVal, ...newVal }),
@@ -59,17 +59,17 @@ const Provider = ({ children }: Props) => {
         }
     }, [])
 
-    // const loadProfile = useCallback((userId: string) => {
+    const loadProfile = useCallback((userId: string) => {
 
-    //     getProfile(userId).then(
-    //         (currentProfile: any) => {
-    //             dispatch({
-    //                 currentProfile
-    //             })
-    //         }
-    //     )
+        getProfile(userId).then(
+            (currentProfile: any) => {
+                dispatch({
+                    currentProfile
+                })
+            }
+        )
 
-    // }, [])
+    }, [])
 
     const loadBalance = useCallback((userAddress: string) => {
         getBalanceUSDC(userAddress).then(
@@ -91,7 +91,7 @@ const Provider = ({ children }: Props) => {
                 })
             },
             loadDefault,
-            // loadProfile,
+            loadProfile,
             balance,
             loadBalance
         }),

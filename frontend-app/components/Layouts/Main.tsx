@@ -3,6 +3,8 @@ import { PropsWithChildren, useEffect, useState } from 'react';
 // import 'aos/dist/aos.css';
 
 import Footer from "./Footer"
+import Sidebar from "./Sidebar"
+import { Menu } from 'react-feather';
 
 import dynamic from 'next/dynamic'
 
@@ -12,6 +14,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 
     const [showLoader, setShowLoader] = useState(true);
     const [showTopButton, setShowTopButton] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const goToTop = () => {
         document.body.scrollTop = 0;
@@ -111,13 +114,38 @@ const MainLayout = ({ children }: PropsWithChildren) => {
                     </div>
                 )}
 
-                <div className="flex min-h-screen flex-col bg-white bg-gradient-to-r from-[#FCF1F4] to-[#EDFBF9] font-mulish text-base font-normal text-gray antialiased dark:bg-[#101926] dark:from-transparent dark:to-transparent">
-                    <Header className={showTopButton ? 'sticky-header' : ''} />
-
-                    <div className="-mt-[82px] flex-grow overflow-x-hidden lg:-mt-[106px]">
-                        {children}
+                <div className="flex min-h-screen bg-black font-mulish text-base font-normal text-white antialiased">
+                    {/* Sidebar */}
+                    <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+                    
+                    {/* Main Content Area */}
+                    <div className="flex-1 lg:ml-64 flex flex-col">
+                        {/* Top Header (simplified for profile/search) */}
+                        <div className="bg-gray-dark border-b border-gray px-6 py-4 flex justify-between items-center">
+                            {/* Mobile Menu Button */}
+                            <button
+                                onClick={() => setSidebarOpen(true)}
+                                className="lg:hidden p-2 text-gray hover:text-white transition-colors"
+                            >
+                                <Menu size={24} />
+                            </button>
+                            
+                            {/* Spacer for desktop (no mobile menu button) */}
+                            <div className="hidden lg:block"></div>
+                            
+                            {/* Header with Sign In - Always on the right */}
+                            <div className="ml-auto">
+                                <Header className="bg-transparent" />
+                            </div>
+                        </div>
+                        
+                        {/* Content */}
+                        <div className="flex-grow overflow-x-hidden bg-black">
+                            {children}
+                        </div>
+                        
+                        <Footer />
                     </div>
-                    <Footer />
                 </div>
 
                 {/* Return to Top  */}

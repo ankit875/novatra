@@ -299,4 +299,77 @@ body {
      
 }
 
+/* Custom Header Styles for New Layout */
+.novatra-logo {
+    @apply text-2xl font-bold text-white hover:text-secondary transition-colors;
+}
+
+.desktop-nav {
+    @apply hidden lg:flex items-center space-x-6;
+}
+
+.desktop-nav a {
+    @apply text-white hover:text-secondary transition-colors duration-200;
+}
+
+.desktop-nav a.active {
+    @apply text-secondary font-semibold;
+}
+
+.mobile-nav {
+    @apply flex flex-col p-6 space-y-4;
+}
+
+.mobile-nav a {
+    @apply text-white hover:text-secondary transition-colors py-2;
+}
+
+.mobile-nav a.active {
+    @apply text-secondary font-semibold;
+}
+
+.profile-section {
+    @apply flex items-center space-x-4;
+}
+
+.mobile-menu-panel {
+    @apply fixed top-0 right-0 h-full w-80 bg-black z-[52] transform transition-transform duration-300 lg:hidden;
+}
+
+.mobile-menu-panel.open {
+    @apply translate-x-0;
+}
+
+.mobile-menu-panel.closed {
+    @apply translate-x-full;
+}
+
+/* Sidebar Layout Styles */
+.sidebar-layout {
+    @apply flex min-h-screen bg-black;
+}
+
+.sidebar-layout .sidebar {
+    @apply fixed left-0 top-0 h-full w-64 bg-black border-r border-gray flex flex-col z-40;
+}
+
+.sidebar-layout .main-content {
+    @apply flex-1 ml-64 flex flex-col;
+}
+
+/* Mobile sidebar handling */
+@media (max-width: 1024px) {
+    .sidebar-layout .sidebar {
+        @apply -translate-x-full transition-transform duration-300;
+    }
+    
+    .sidebar-layout .sidebar.mobile-open {
+        @apply translate-x-0;
+    }
+    
+    .sidebar-layout .main-content {
+        @apply ml-0;
+    }
+}
+
 
