@@ -60,7 +60,6 @@ const Header = (props: any) => {
                             <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                                 <User size={16} className="text-white" />
                             </div>
-                            <span className="text-white font-medium">{user.username}</span>
                         </div>
                     )}
                 </Link>

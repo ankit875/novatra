@@ -1,23 +1,12 @@
 
 import { signOut } from "aws-amplify/auth";
 import { useRouter } from 'next/router';
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import Overview from "@/components/Profile/Overview";
 import { NovatraContext } from "@/hooks/useNovatra";
 
-enum Menu {
-    PROFILE,
-    WALLET,
-    POSITION,
-    MARKET
-}
-
 const ProfileContainer = () => {
-
-    const [tab, setTab] = useState<Menu>(Menu.PROFILE)
-
     const router = useRouter()
-
     const { currentProfile } = useContext(NovatraContext)
 
     const handleSignOut = async () => {
@@ -30,60 +19,26 @@ const ProfileContainer = () => {
     }
 
     return (
-        <div>
-            <div className="  mx-auto w-full max-w-lg pt-2">
-
+        <div className="max-w-2xl mx-auto">
+            <div className="bg-gray-800 rounded-xl shadow-lg border border-gray-700 p-6 mb-6">
+                <h1 className="text-2xl font-bold text-white mb-2">Profile Settings</h1>
+                <p className="text-gray-400">Manage your Novatra account and preferences</p>
+            </div>
+            
+            <div className="space-y-6">
                 <Overview profile={currentProfile} />
-                <div className="py-2 pt-2.5 px-1">
-                    <button onClick={handleSignOut} type="button" className="btn mx-auto bg-white py-3.5 w-full rounded-lg my-2">
-                        Sign out
+                
+                <div className="bg-gray-800 rounded-xl border border-gray-700 p-6">
+                    <h3 className="text-lg font-semibold text-white mb-4">Account Actions</h3>
+                    <button 
+                        onClick={handleSignOut} 
+                        type="button" 
+                        className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 hover:shadow-lg"
+                    >
+                        Sign Out
                     </button>
                 </div>
-
-                {/* <div className='col-span-1 grid grid-cols-5 '>
-                    <div className='col-span-4 flex flex-col'>
-                        <div onClick={() => setTab(Menu.PROFILE)} className={`py-2.5 px-2 cursor-pointer border-0 border-b-2 border-gray/20 ${tab === Menu.PROFILE && "font-semibold  text-secondary"}`}>
-                            Overview
-                        </div>
-                        <div onClick={() => setTab(Menu.WALLET)} className={`py-2.5 px-2 cursor-pointer border-0 border-b-2 border-gray/20  ${tab === Menu.WALLET && "font-semibold  text-secondary"}`}>
-                            Connected Wallets
-                        </div>
-                        <Link href="/auth/my-positions">
-                            <div className={`py-2.5 px-2 cursor-pointer border-0 border-b-2 border-gray/20  ${tab === Menu.POSITION && "font-semibold  text-secondary"}`}>
-                                My Positions
-                            </div>
-                        </Link>
-                        <Link href="/auth/my-markets">
-                            <div className={`py-2.5 px-2 cursor-pointer  ${tab === Menu.MARKET && "font-semibold  text-secondary"}`}>
-                                My Markets
-                            </div>
-                        </Link>
-                        <div className="py-2 pt-2.5">
-                            <button onClick={handleSignOut} type="button" className="btn mx-auto bg-white py-3.5 w-full rounded-lg my-2">
-                                Sign out
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-                <div className='col-span-2 p-4'>
-                    {tab === Menu.PROFILE && (
-                        <Overview profile={currentProfile} />
-                    )}
-                    {tab === Menu.WALLET && (
-                        <div className="bg-black/90 rounded-lg p-6">
-                            <h2 className="text-xl font-semibold text-white mb-4">Connected Wallets</h2>
-                        </div>
-                    )}
-                    {tab === Menu.POSITION && (
-                        <div className="bg-black/90 rounded-lg p-6">
-                            <h2 className="text-xl font-semibold text-white mb-4">Your Positions</h2>
-                        </div>
-                    )}
-                </div> */}
-
             </div>
-
         </div>
     )
 }

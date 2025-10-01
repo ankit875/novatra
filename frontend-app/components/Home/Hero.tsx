@@ -15,6 +15,12 @@ import BaseModal from "@/modals/Base";
 import useDatabase from "@/hooks/useDatabase";
 import Skeleton from "react-loading-skeleton";
 
+interface Outcome {
+  title: string;
+  totalBetAmount: string;
+  resolutionDate: number;
+}
+
 const Hero = () => {
   const [modal, setModal] = useState<boolean>(false);
 
@@ -68,31 +74,36 @@ const Hero = () => {
           Mainnet and Sui launching soon
         </p>
       </BaseModal>
-      <section className="bg-black bg-[url(/assets/images/banner-bg-1.png)] bg-bottom bg-no-repeat">
-        <div className="py-24 bg-gradient-to-r from-[#B476E5]/10 to-[#47BDFF]/10 lg:py-32">
+      <section className=" bg-no-repeat" style={{ backgroundColor: 'rgb(9 69 162)' }}>
+        <div className="py-24 bg-gradient-to-r from-secondary/20 via-primary/10 to-secondary/20 lg:py-32">
           <div className="container mx-auto px-6">
-            <div className="flex">
-              <div className="mx-auto text-center">
-                <h1
-                  className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl"
-                  data-aos="fade-up"
-                  data-aos-duration="1000"
-                >
+        <div className="flex">
+          <div className="mx-auto text-center">
+            <h1
+          className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+            >
                   <span className="block xl:inline">
-                    <span className="mb-1 block">Predict, stake</span>
+                    <span className="mb-1 block">Predict, Stake, and Earn</span>
                     <span className="bg-gradient-to-r from-secondary/80 to-secondary/40 bg-clip-text text-transparent">
-                      and earn with AI
+                      with Novatra AI
                     </span>
                   </span>
-                  <div className="mt-2 text-white">— 10x fun and easy!</div>
                 </h1>
               </div>
             </div>
             <div className="mx-2 sm:mx-6">
               <p className="mt-[20px] sm:mt-[40px] text-center mx-auto mb-[20px] max-w-[700px] text-sm sm:text-lg lg:text-xl font-normal sm:font-semibold text-gray">
-                Novatra&apos;s AI tracks major trusted sources, letting you
-                propose any future outcomes and earn when you&apos;re right
+                Leverage cutting-edge AI to forecast market outcomes, propose new events, and claim rewards
               </p>
+              
+              <div className="text-center mt-8">
+                <button className="bg-gradient-to-r from-secondary to-primary hover:from-secondary/80 hover:to-primary/80 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center mx-auto">
+                  Create New Market
+                  <ArrowRight size={18} className="ml-2" />
+                </button>
+              </div>
             </div>
             
           </div>
@@ -106,11 +117,11 @@ const Hero = () => {
 
 const Highlighted = () => {
   const { getAllOutcomes } = useDatabase();
-  const [outcomes, setOutcomes] = useState([]);
+  const [outcomes, setOutcomes] = useState<Outcome[]>([]);
 
   useEffect(() => {
     getAllOutcomes().then(setOutcomes);
-  }, []);
+  }, [getAllOutcomes]);
 
   return (
     <div className="px-6 sm:px-1">
@@ -163,7 +174,7 @@ const Highlighted = () => {
           </div>
         )}
 
-        {outcomes.map((item: any, index: number) => {
+        {outcomes.map((item: Outcome, index: number) => {
           const icon = titleToIcon(item.title || "");
 
           let countdown = "0";

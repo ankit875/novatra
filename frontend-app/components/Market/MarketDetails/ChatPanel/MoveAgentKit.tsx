@@ -89,7 +89,7 @@ const ChatPanelMoveAgentKit = ({
             const addOutcomeResult = await query([
                 {
                     role: "system",
-                    content: "You are a helpful AI assistant that checks incoming messages and adds new outcomes to the Legato DeFi prediction market or place bets. When proposing new outcomes, please include the protocol name at the end of the sentence."
+                    content: "You are a helpful AI assistant that checks incoming messages and adds new outcomes to the Novatra DeFi prediction market or place bets. When proposing new outcomes, please include the protocol name at the end of the sentence."
                 },
                 ...sendingMessages
             ])

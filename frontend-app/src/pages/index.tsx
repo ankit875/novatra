@@ -20,7 +20,7 @@ export default function Index() {
                 </title>
             </Head>
 
-            <div className="h-20 bg-black lg:h-[104px]"></div>
+            <div className="h-20 lg:h-[104px]" style={{ backgroundColor: 'rgb(9 69 162)' }}></div>
             <Hero />
 
             {/* <Features/> */}
@@ -30,7 +30,7 @@ export default function Index() {
             {/*
             <Blog />
 */}
-            <section className="bg-gradient-to-t from-white to-transparent pb-8 dark:bg-none  ">
+            <section className="pb-8" style={{ backgroundColor: 'rgb(9 69 162)' }}>
                 <Faq/>
             </section>  
 

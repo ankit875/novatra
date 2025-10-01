@@ -114,18 +114,18 @@ const MainLayout = ({ children }: PropsWithChildren) => {
                     </div>
                 )}
 
-                <div className="flex min-h-screen bg-black font-mulish text-base font-normal text-white antialiased">
+                <div className="flex min-h-screen font-mulish text-base font-normal text-white antialiased relative" style={{ backgroundColor: 'rgb(9 69 162)' }}>
                     {/* Sidebar */}
                     <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
                     
                     {/* Main Content Area */}
-                    <div className="flex-1 lg:ml-64 flex flex-col">
+                    <div className="flex-1 lg:ml-64 flex flex-col min-h-screen">
                         {/* Top Header (simplified for profile/search) */}
-                        <div className="bg-gray-dark border-b border-gray px-6 py-4 flex justify-between items-center">
+                        <div className="bg-gray-800 border-b border-gray-700 px-6 py-4 flex justify-between items-center shadow-lg z-30">
                             {/* Mobile Menu Button */}
                             <button
                                 onClick={() => setSidebarOpen(true)}
-                                className="lg:hidden p-2 text-gray hover:text-white transition-colors"
+                                className="lg:hidden p-2 text-white hover:text-secondary transition-colors bg-gray-700 rounded-lg"
                             >
                                 <Menu size={24} />
                             </button>
@@ -140,7 +140,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
                         </div>
                         
                         {/* Content */}
-                        <div className="flex-grow overflow-x-hidden bg-black">
+                        <div className="flex-grow overflow-x-hidden" style={{ backgroundColor: 'rgb(9 69 162)' }}>
                             {children}
                         </div>
                         
