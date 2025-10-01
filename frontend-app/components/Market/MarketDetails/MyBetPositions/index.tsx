@@ -392,40 +392,5 @@ const PositionCard = ({ position, rounds, market, openModal }: any) => {
   );
 };
 
-const PositionRow = ({ item }: any) => {
-  const [data, setData] = useState<any>(undefined);
-  const { getOutcomeById } = useDatabase();
-
-  useEffect(() => {
-    item && getOutcomeById(item.predictedOutcome).then(setData);
-  }, [item]);
-
-  return (
-    <>
-      <td className="py-2 pr-2 text-white ">
-        <BadgePurple>Round {item.roundId}</BadgePurple>
-      </td>
-      <td className="py-2 pr-2 text-white ">{data?.title}</td>
-
-      <td className="py-2 pr-2  ">
-        <div className="flex flex-row ">
-          ❌
-          <h2 className="my-auto ml-2 text-white/60 font-semibold">
-            {item.betAmount.toLocaleString()} USDC
-          </h2>
-        </div>
-      </td>
-      <td className="py-2 pr-2 text-white   ">
-        <button
-          disabled={true}
-          type="button"
-          className="btn rounded-lg   bg-white py-1.5 text-sm px-4  hover:text-black hover:bg-white flex flex-row"
-        >
-          Claim
-        </button>
-      </td>
-    </>
-  );
-};
 
 export default MyBetPositions;

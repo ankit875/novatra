@@ -94,17 +94,7 @@ const Hero = () => {
                 propose any future outcomes and earn when you&apos;re right
               </p>
             </div>
-            <div className="mx-2 sm:mx-4 flex w-full mb-6">
-              <Link href={`/markets`} className="mx-auto">
-                <button
-                  type="button"
-                  className="btn bg-primary hover:bg-secondary text-white text-xs sm:text-base flex rounded-lg px-6 py-3 sm:py-4 sm:px-12 flex-row transition-colors"
-                >
-                  <div className="my-auto">Explore{` `}</div>
-                  <ArrowRight size={18} className="mt-[3px] ml-1" />
-                </button>
-              </Link>
-            </div>
+            
           </div>
 
           <Highlighted />

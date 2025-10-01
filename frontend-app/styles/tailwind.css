@@ -349,6 +349,30 @@ body {
     @apply flex min-h-screen bg-black;
 }
 
+/* Swiper fixes to prevent infinite width expansion */
+.swiper-container, .mySwiper {
+    width: 100% !important;
+    overflow: hidden;
+}
+
+.swiper-slide {
+    width: auto !important;
+    max-width: 280px !important;
+    min-width: 200px !important;
+    flex-shrink: 0;
+}
+
+.swiper-wrapper {
+    width: auto !important;
+}
+
+/* Market card width constraints */
+.market-card-container {
+    width: 100%;
+    max-width: 280px;
+    min-width: 200px;
+}
+
 .sidebar-layout .sidebar {
     @apply fixed left-0 top-0 h-full w-64 bg-black border-r border-gray flex flex-col z-40;
 }
