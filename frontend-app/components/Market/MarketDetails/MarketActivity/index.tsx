@@ -100,11 +100,6 @@ const MarketActivity = () => {
                                                 </p>
                                             </div>
                                         </div>
-                                        {activity.activity === "outcome" && (
-                                            <p className="text-base text-gray-500 line-clamp-1">
-                                                {activity.title}
-                                            </p>
-                                        )}
                                         {activity.activity === "bet" && <OutcomeText outcomeId={activity.predictedOutcome} />}
                                         <div className="flex items-end flex-row">
                                             <p className="text-sm my-auto text-gray-500">

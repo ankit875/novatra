@@ -43,18 +43,18 @@ const Sidebar = ({ isOpen = true, onClose }: SidebarProps) => {
             icon: TrendingUp,
             active: router.pathname === '/markets' || router.pathname.includes('/markets')
         },
-        {
-            name: 'Vault',
-            href: `/vault/${currentNetwork}`,
-            icon: Package,
-            active: router.pathname === '/vault' || router.pathname.includes('vault')
-        },
-        {
-            name: 'User Activity',
-            href: '/activity',
-            icon: Activity,
-            active: router.pathname === '/activity'
-        }
+        // {
+        //     name: 'Vault',
+        //     href: `/vault/${currentNetwork}`,
+        //     icon: Package,
+        //     active: router.pathname === '/vault' || router.pathname.includes('vault')
+        // },
+        // {
+        //     name: 'User Activity',
+        //     href: '/activity',
+        //     icon: Activity,
+        //     active: router.pathname === '/activity'
+        // }
     ];
 
     return (

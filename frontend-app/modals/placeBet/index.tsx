@@ -3,6 +3,7 @@ import BaseModal from "@/modals/Base";
 import { Puff } from "react-loading-icons";
 import { Authenticator, View } from "@aws-amplify/ui-react";
 import Link from "next/link";
+import Image from "next/image";
 import useDatabase from "@/hooks/useDatabase";
 import { OptionBadge } from "@/components/Badge";
 import ListGroup from "@/components/ListGroup";
@@ -177,152 +178,146 @@ const PlaceBetModal = ({ visible, close, bet, onchainMarketId = 1 }: any) => {
 
             {outcome && (
               <>
-                <div className="p-2 border-gray/20   mt-[15px] border-[1px] rounded-md bg-[url(/assets/images/consulting/business-img.png)] bg-cover bg-center bg-no-repeat ">
-                  <div className="grid grid-cols-2 p-2 text-gray">
-                    <div className=" py-0.5  col-span-2 text-lg font-semibold  text-white flex flex-row">
-                      {outcome.title}
-                    </div>
-                    <div className=" py-0.5 col-span-2  text-sm  flex flex-row">
-                      <span className="font-bold mr-2">At:</span>
-                      <div className={`   flex flex-row  text-white text-sm `}>
-                        {` ${new Date(Number(outcome.resolutionDate) * 1000).toUTCString()}`}
-                      </div>
-                    </div>
-
-                    <div className=" py-0.5 text-sm  flex flex-row">
-                      <span className="font-bold mr-2">Current Odds:</span>
-                      <div className={`   flex flex-row  text-white text-sm `}>
-                        {`${outcome.weight ? `${minOdds.toLocaleString()}-${`${maxOdds !== -1 ? maxOdds.toLocaleString() : "10"}`}` : "N/A"}`}
-                      </div>
-                    </div>
-                    <div className=" py-0.5 text-sm  flex flex-row">
-                      <span className="font-bold mr-2">Round Pool:</span>
-                      <div className={`   flex flex-row  text-white text-sm `}>
-                        {`${totalPool} USDC`}
-                      </div>
-                    </div>
-                    {/* <div className=" py-0.5 text-sm  flex flex-row">
-                                            <span className="font-bold mr-2">Deadline:</span>
-                                            <div className={`   flex flex-row  text-white text-sm `}>
-                                                 
-                                            </div>
-                                        </div> */}
-                  </div>
-                </div>
-                <div className="p-2 px-0   rounded-md ">
-                  <div className="py-3">
-                    <div className="block leading-6 mb-2">Enter bet amount</div>
-                    <div className="grid grid-cols-7">
-                      <div className="col-span-5">
-                        <input
-                          value={amount}
-                          onChange={(e) => {
-                            onAmountChange(Number(e.target.value));
-                          }}
-                          type="number"
-                          id="input-asset"
-                          className={`block w-full p-4 py-3  rounded-l-lg text-lg bg-[#141F32] border border-gray/30 placeholder-gray text-white focus:outline-none`}
-                        />
-                      </div>
-
-                      <div className="col-span-2">
-                        <div className="cursor-default flex border border-l-0 border-gray/30 bg-gray/30  rounded-r-lg h-full">
-                          <div className="m-auto flex flex-row text-white font-normal">
-                            <img
-                              className="h-5 w-5 mt-0.5 rounded-full"
-                              src={
-                                "https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png"
-                              }
-                              alt=""
-                            />
-                            <div className="mt-auto mb-auto ml-1.5">USDC</div>
+                <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl overflow-hidden mt-4">
+                  {/* Header */}
+                  <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 p-6 border-b border-white/10">
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent"></div>
+                    <div className="relative">
+                      <h3 className="text-xl font-bold text-white mb-3">{outcome.title}</h3>
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-sm text-gray-300">Resolution Date:</span>
+                          <span className="text-sm text-white font-medium">
+                            {new Date(Number(outcome.resolutionDate) * 1000).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="flex items-center space-x-2">
+                            <span className="text-sm text-gray-300">Current Odds:</span>
+                            <span className="text-sm text-green-400 font-medium">
+                              {outcome.weight ? `${minOdds.toLocaleString()}-${maxOdds !== -1 ? maxOdds.toLocaleString() : "10"}` : "N/A"}
+                            </span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <span className="text-sm text-gray-300">Pool Size:</span>
+                            <span className="text-sm text-blue-400 font-medium">{totalPool} USDC</span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="text-xs flex flex-row my-2">
-                      <div className="font-medium ">
-                        Available: {Number(balance).toFixed(3)}
-                        {` USDC`}
-                      </div>
-                      <div className="ml-auto flex flex-row ">
-                        <OptionBadge
-                          onClick={() => onAmountChange(1)}
-                          className="cursor-pointer hover:bg-gray hover:text-black"
-                        >
-                          1{` USDC`}
-                        </OptionBadge>
-                        <OptionBadge
-                          onClick={() =>
-                            onAmountChange(
-                              Math.floor(Number(balance) * 500) / 1000
-                            )
-                          }
-                          className="cursor-pointer hover:bg-gray hover:text-black"
-                        >
-                          50%
-                        </OptionBadge>
-                        <OptionBadge
-                          onClick={() =>
-                            onAmountChange(
-                              balance > 100
-                                ? 100
-                                : Math.floor(Number(balance) * 1000) / 1000
-                            )
-                          }
-                          className="cursor-pointer hover:bg-gray hover:text-black"
-                        >
-                          Max
-                        </OptionBadge>
+                  </div>
+                </div>
+                <div className="p-6 space-y-6">
+                  {/* Bet Amount Section */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <label className="text-lg font-semibold text-white">Enter bet amount</label>
+                      <div className="text-sm text-gray-300">
+                        Available: <span className="text-white font-medium">{Number(balance).toFixed(3)} USDC</span>
                       </div>
                     </div>
-                    <div className="px-1 mt-4">
+                    
+                    <div className="relative">
+                      <input
+                        value={amount}
+                        onChange={(e) => {
+                          onAmountChange(Number(e.target.value));
+                        }}
+                        type="number"
+                        placeholder="0.00"
+                        className="block w-full p-4 pr-20 text-lg bg-gray-800/50 border border-gray-600/50 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
+                      />
+                      <div className="absolute right-0 top-0 h-full flex items-center pr-4">
+                        <div className="flex items-center space-x-2 bg-gray-700/50 px-3 py-1.5 rounded-lg">
+                          <Image
+                            className="h-5 w-5 rounded-full"
+                            src="https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png"
+                            alt="USDC"
+                            width={20}
+                            height={20}
+                          />
+                          <span className="text-white font-medium text-sm">USDC</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-end space-x-2">
+                      <OptionBadge
+                        onClick={() => onAmountChange(1)}
+                        className="cursor-pointer hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all"
+                      >
+                        1 USDC
+                      </OptionBadge>
+                      <OptionBadge
+                        onClick={() =>
+                          onAmountChange(
+                            Math.floor(Number(balance) * 500) / 1000
+                          )
+                        }
+                        className="cursor-pointer hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all"
+                      >
+                        50%
+                      </OptionBadge>
+                      <OptionBadge
+                        onClick={() =>
+                          onAmountChange(
+                            balance > 100
+                              ? 100
+                              : Math.floor(Number(balance) * 1000) / 1000
+                          )
+                        }
+                        className="cursor-pointer hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 transition-all"
+                      >
+                        Max
+                      </OptionBadge>
+                    </div>
+                  </div>
+
+                  {/* Potential Payout Information */}
+                  <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl p-4 border border-green-400/20">
+                    <div className="space-y-3">
                       <ListGroup
                         items={[
                           [
                             "Potential payout",
                             `${minPayout.toLocaleString()}-${maxPayout.toLocaleString()} USDC`,
                           ],
-                          // ["Estimate payout date", `N/A`],
                           ["Winning fee", "10%"],
                         ]}
                       />
                     </div>
-                    <div className="flex mt-4">
-                      {address && (
-                        <button
-                          onClick={onBet}
-                          disabled={loading}
-                          type="button"
-                          className="btn mx-auto w-full bg-white hover:bg-white hover:text-black rounded-md"
-                        >
-                          {loading ? (
-                            <Puff stroke="#000" className="w-5 h-5 mx-auto" />
-                          ) : (
-                            <>Place Bet</>
-                          )}
-                        </button>
-                      )}
+                  </div>
 
-                      {!address && <WalletSelector />}
-                    </div>
+                  {/* Action Button */}
+                  <div className="space-y-3">
+                    {address && (
+                      <button
+                        onClick={onBet}
+                        disabled={loading}
+                        type="button"
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                      >
+                        {loading ? (
+                          <Puff stroke="#fff" className="w-5 h-5" />
+                        ) : (
+                          <span>Place Bet</span>
+                        )}
+                      </button>
+                    )}
+
+                    {!address && (
+                      <div className="w-full">
+                        <WalletSelector />
+                      </div>
+                    )}
 
                     {errorMessage && (
-                      <div className="text-gray-400 mt-2 text-sm font-medium  text-center w-full ">
-                        <div className="p-2 pb-0 text-secondary">
+                      <div className="bg-red-500/10 border border-red-400/20 rounded-xl p-3">
+                        <div className="text-red-400 text-sm font-medium text-center">
                           {errorMessage}
                         </div>
                       </div>
                     )}
-                    <style>
-                      {`
-                                        .wallet-button {
-                                            width: 100%;
-                                            z-index: 1;
-                                            border-width: 0px;
-                                        } 
-                                        `}
-                    </style>
                   </div>
                 </div>
               </>

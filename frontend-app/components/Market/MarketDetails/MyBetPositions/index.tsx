@@ -145,150 +145,163 @@ const MyBetPositions = ({ marketData, onchainMarket, currentRound }: any) => {
             maxWidth="max-w-xl"
           >
             {modal && (
-              <>
-                <div className="grid grid-cols-2 py-2 text-gray">
-                  <div className=" py-0.5  col-span-2 text-lg font-semibold  text-white flex flex-row">
-                    {modal?.outcome?.title}
+              <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl overflow-hidden mt-4">
+                {/* Header */}
+                <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 p-6 border-b border-white/10">
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent"></div>
+                  <div className="relative">
+                    <h3 className="text-xl font-bold text-white mb-3">{modal?.outcome?.title}</h3>
+                    
+                    {!modal?.outcome?.revealedTimestamp && (
+                      <div className="space-y-3">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-sm text-gray-300">Resolution Date:</span>
+                          <span className="text-sm text-white font-medium">
+                            {new Date(Number(modal?.outcome?.resolutionDate) * 1000).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <div className="bg-yellow-500/10 border border-yellow-400/20 rounded-xl p-4">
+                          <div className="flex items-center justify-center space-x-2">
+                            <span className="text-yellow-400">⏳</span>
+                            <span className="text-white font-semibold">The result is not yet revealed</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {modal?.outcome?.revealedTimestamp && (
+                      <div className="space-y-4">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-sm text-gray-300">Checked At:</span>
+                          <span className="text-sm text-white font-medium">
+                            {new Date(Number(modal?.outcome?.revealedTimestamp) * 1000).toLocaleDateString()}
+                          </span>
+                        </div>
+                        
+                        <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl p-4 border border-gray-600/30">
+                          <div className="grid grid-cols-2 gap-4 mb-3">
+                            <div className="flex items-center space-x-2">
+                              <span className="text-sm text-gray-300">Result:</span>
+                              <span className="text-lg">{modal?.outcome?.isWon ? "✅" : "❌"}</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <span className="text-sm text-gray-300">Disputed:</span>
+                              <span className="text-lg">{modal?.outcome?.isDisputed ? "✅" : "❌"}</span>
+                            </div>
+                          </div>
+                          {modal?.outcome?.result && (
+                            <div className="text-white text-sm bg-gray-700/30 rounded-lg p-3">
+                              {modal?.outcome?.result}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
+                </div>
 
-                  {!modal?.outcome?.revealedTimestamp && (
-                    <>
-                      <div className=" py-0.5 col-span-2  text-sm  flex flex-row">
-                        <span className="font-bold mr-2">At:</span>
-                        <div
-                          className={`   flex flex-row  text-white text-sm `}
+                {/* Action Section */}
+                {modal?.outcome?.revealedTimestamp && (
+                  <div className="p-6 space-y-4">
+                    <div className="space-y-3">
+                      {address && (
+                        <button
+                          onClick={onClaim}
+                          disabled={
+                            loading ||
+                            (!modal?.outcome?.isWon &&
+                              !modal?.outcome?.isDisputed)
+                          }
+                          type="button"
+                          className={`w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 ${
+                            !modal?.outcome?.isWon && !modal?.outcome?.isDisputed && "opacity-60"
+                          }`}
                         >
-                          {` ${new Date(Number(modal?.outcome?.resolutionDate) * 1000).toUTCString()}`}
-                        </div>
-                      </div>
-                      <div className="col-span-2 rounded-lg   h-[100px] mt-[10px] flex border border-gray/30">
-                        <div className="m-auto text-white font-semibold">
-                          The result is not yet revealed
-                        </div>
-                      </div>
-                    </>
-                  )}
+                          {loading ? (
+                            <Puff stroke="#fff" className="w-5 h-5" />
+                          ) : (
+                            <span>
+                              {modal?.outcome?.isDisputed ? "Refund" : "Claim"}
+                            </span>
+                          )}
+                        </button>
+                      )}
 
-                  {modal?.outcome?.revealedTimestamp && (
-                    <>
-                      <div className=" py-0.5 col-span-2  text-sm  flex flex-row">
-                        <span className="font-bold mr-2">Checked At:</span>
-                        <div
-                          className={`   flex flex-row  text-white text-sm `}
-                        >
-                          {` ${new Date(Number(modal?.outcome?.revealedTimestamp) * 1000).toUTCString()}`}
-                        </div>
-                      </div>
-                      <div className="col-span-2 rounded-lg grid grid-cols-2 mt-[10px] p-4 py-2 border border-gray/30">
-                        <div className=" py-0.5 col-span-1  text-sm  flex flex-row">
-                          <span className="font-bold mr-2">Result:</span>
-                          <div
-                            className={`   flex flex-row  text-white text-sm `}
-                          >
-                            {modal?.outcome?.isWon ? "✅" : "❌"}
-                          </div>
-                        </div>
-                        <div className=" py-0.5 col-span-1  text-sm  flex flex-row">
-                          <span className="font-bold mr-2">Disputed:</span>
-                          <div
-                            className={`   flex flex-row  text-white text-sm `}
-                          >
-                            {modal?.outcome?.isDisputed ? "✅" : "❌"}
-                          </div>
-                        </div>
-                        <div className=" py-0.5 col-span-2  text-sm  flex flex-row">
-                          <div className="text-white my-1">
-                            {modal?.outcome?.result}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex mt-4 flex-col col-span-2">
-                        {address && (
-                          <button
-                            onClick={onClaim}
-                            disabled={
-                              loading ||
-                              (!modal?.outcome?.isWon &&
-                                !modal?.outcome?.isDisputed)
+                      {!address && (
+                        <div className="w-full">
+                          <WalletSelector />
+                          <style jsx>{`
+                            :global(.wallet-button) {
+                              width: 100% !important;
+                              z-index: 1;
+                              border-width: 0px;
+                              background: linear-gradient(to right, #2563eb, #9333ea) !important;
+                              color: white !important;
+                              border-radius: 0.75rem !important;
+                              padding: 1rem 1.5rem !important;
+                              font-weight: 600 !important;
                             }
-                            type="button"
-                            className={`btn mx-auto w-full bg-white hover:bg-white hover:text-black rounded-md ${!modal?.outcome?.isWon && !modal?.outcome?.isDisputed && " hover:scale-100 opacity-60 "}`}
-                          >
-                            {loading ? (
-                              <Puff stroke="#000" className="w-5 h-5 mx-auto" />
-                            ) : (
-                              <>
-                                {modal?.outcome?.isDisputed
-                                  ? "Refund"
-                                  : "Claim"}
-                              </>
-                            )}
-                          </button>
-                        )}
-
-                        {!address && <WalletSelector />}
-                      </div>
+                            :global(.wallet-button:hover) {
+                              background: linear-gradient(to right, #1d4ed8, #7c3aed) !important;
+                            }
+                          `}</style>
+                        </div>
+                      )}
 
                       {errorMessage && (
-                        <div className="text-gray-400 col-span-2 mt-2 text-sm font-medium  text-center w-full ">
-                          <div className="p-2 pb-0 text-secondary">
+                        <div className="bg-red-500/10 border border-red-400/20 rounded-xl p-3">
+                          <div className="text-red-400 text-sm font-medium text-center">
                             {errorMessage}
                           </div>
                         </div>
                       )}
+
                       {!errorMessage && (
-                        <div className="text-gray-400 col-span-2 mt-2 text-sm font-medium  text-center w-full ">
-                          <div className="p-2 pb-0 text-secondary">
-                            Ensure your wallet is{" "}
-                            {shortAddress(modal?.position?.walletAddress)}
+                        <div className="bg-blue-500/10 border border-blue-400/20 rounded-xl p-3">
+                          <div className="text-blue-400 text-sm font-medium text-center">
+                            Ensure your wallet is {shortAddress(modal?.position?.walletAddress)}
                           </div>
                         </div>
                       )}
-
-                      <style>
-                        {`
-                                        .wallet-button {
-                                            width: 100%;
-                                            z-index: 1;
-                                            border-width: 0px;
-                                        } 
-                                        `}
-                      </style>
-                    </>
-                  )}
-                </div>
-              </>
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </BaseModal>
 
-          <div className="flex flex-col my-2">
-            <div className="flex flex-row justify-between my-2 text-white ml-4 mx-4">
-              <div className="mx-auto uppercase text-2xl font-bold text-white  text-center px-4">
-                ⚡ All Positions
+          <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl overflow-hidden my-4">
+            {/* Header Section */}
+            <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 p-6 border-b border-white/10">
+              <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent"></div>
+              <div className="relative flex items-center justify-center">
+                <h2 className="text-2xl font-bold text-white">All Positions</h2>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 my-1 mb-0">
-              <div className="flex flex-row">
-                <div className="text-white my-auto text-sm mr-2 font-semibold">
-                  Filters
+            {/* Filters and Stats */}
+            <div className="p-6 border-b border-white/10">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <span className="text-white font-semibold">Filters:</span>
+                  <select
+                    value={sorted}
+                    onChange={(e: any) => {
+                      dispatch({ sorted: e.target.value });
+                    }}
+                    className="p-3 px-4 rounded-xl text-sm bg-gray-800/50 border border-gray-600/50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
+                  >
+                    <option value={SortBy.All}>All</option>
+                    <option value={SortBy.Active}>Active</option>
+                    <option value={SortBy.Resolved}>Resolved</option>
+                  </select>
                 </div>
-                <select
-                  value={sorted}
-                  onChange={(e: any) => {
-                    dispatch({ sorted: e.target.value });
-                  }}
-                  className="  p-2 px-3 py-1 cursor-pointer my-auto rounded-lg text-sm bg-[#141F32] border border-gray/30 placeholder-gray text-white focus:outline-none"
-                >
-                  <option value={SortBy.All}>All</option>
-                  <option value={SortBy.Active}>Active</option>
-                  <option value={SortBy.Resolved}>Resolved</option>
-                </select>
-              </div>
-              <div className="text-center flex"></div>
-              <div className="text-white my-auto text-sm ml-auto font-semibold">
-                💰 Total Bet Size: {totalAmount.toLocaleString()} USDC
+                <div className="flex items-center space-x-2">
+                  <span className="text-yellow-400">💰</span>
+                  <span className="text-white font-semibold">
+                    Total Bet: <span className="text-green-400">{totalAmount.toLocaleString()} USDC</span>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -344,6 +357,20 @@ const PositionCard = ({ position, rounds, market, openModal }: any) => {
       checkPayoutAmount(position.onchainId);
   }, [currentRound, position]);
 
+  const getStatusInfo = () => {
+    if (isActive) return { icon: "🟢", text: "Active", color: "text-green-400" };
+    if (!isActive && !isEnded) return { icon: "🔵", text: "Outcome Pending", color: "text-blue-400" };
+    if (data && isEnded) {
+      if (data.isWon || data.isDisputed) {
+        return { icon: "🟡", text: "Resolved – Claimable", color: "text-yellow-400" };
+      }
+      return { icon: "🔴", text: "Resolved – Lost", color: "text-red-400" };
+    }
+    return { icon: "⏳", text: "Pending", color: "text-gray-400" };
+  };
+
+  const status = getStatusInfo();
+
   return (
     <div
       onClick={() => {
@@ -354,36 +381,47 @@ const PositionCard = ({ position, rounds, market, openModal }: any) => {
             outcome: data,
           });
       }}
-      className=" h-[150px] p-4 px-2 border-2 flex flex-col cursor-pointer border-white/[0.1] bg-transparent bg-gradient-to-b from-white/5 to-transparent rounded-lg"
+      className="group relative bg-gradient-to-br from-gray-800/40 via-gray-900/60 to-black/80 rounded-xl p-5 border border-gray-600/30 hover:border-blue-500/50 transition-all duration-300 cursor-pointer hover:transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/10"
     >
-      <div className="flex flex-row">
-        <div className="px-2">
-          <p className="text-white font-semibold line-clamp-2">{data?.title}</p>
-        </div>
-      </div>
-      <div className="px-2 text-sm flex font-semibold my-1">
-        Round {position.roundId}: {new Date(startPeriod).toLocaleDateString()}-
-        {new Date(endPeriod).toLocaleDateString()}
-        {isEnded && " "}
-        <span className=" ml-auto  ">{`Bet: ${position.betAmount.toLocaleString()} USDC`}</span>
-      </div>
-      <div className="flex px-2 flex-row my-1 mt-auto  justify-between">
-        <div className="text-white   ">
-          {isActive && "🟢 Active"}
-          {!isActive && !isEnded && "🔵 Outcome Pending"}
-          {data && isEnded && (
-            <>
-              {data.isWon || data.isDisputed
-                ? "🟡 Resolved – Claimable"
-                : "🔴 Resolved – Lost"}
-            </>
-          )}
+      {/* Background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      
+      <div className="relative space-y-4">
+        {/* Title */}
+        <div className="space-y-2">
+          <h4 className="text-white font-semibold text-sm line-clamp-2 leading-tight">
+            {data?.title}
+          </h4>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-gray-300">
+              Round {position.roundId}
+            </span>
+            <span className="text-gray-400">
+              {new Date(startPeriod).toLocaleDateString()} - {new Date(endPeriod).toLocaleDateString()}
+            </span>
+          </div>
         </div>
 
-        <div className=" flex flex-row">
+        {/* Bet Amount */}
+        <div className="bg-gray-700/30 rounded-lg p-3">
+          <div className="flex items-center justify-between">
+            <span className="text-gray-300 text-sm">Bet Amount:</span>
+            <span className="text-white font-semibold">{position.betAmount.toLocaleString()} USDC</span>
+          </div>
+        </div>
+
+        {/* Status and Claimed indicator */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <span className="text-lg">{status.icon}</span>
+            <span className={`text-sm font-medium ${status.color}`}>
+              {status.text}
+            </span>
+          </div>
+          
           {position.isClaimed && (
-            <div className="text-secondary font-semibold text-sm mt-auto">
-              claimed
+            <div className="bg-green-500/20 border border-green-400/30 rounded-full px-2 py-1">
+              <span className="text-green-400 text-xs font-semibold uppercase">Claimed</span>
             </div>
           )}
         </div>

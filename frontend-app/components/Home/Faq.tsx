@@ -31,14 +31,9 @@ const DATA = [
         "answer": "Yes! You can propose new outcomes by interacting with the AI-Agent, which will validate and assign weights before finalization."
     },
     {
-        "id": 6,
-        "question": "What happens to the liquidity vault product?",
-        "answer": "We have temporarily stopped our staking vault service to focus on the prediction market product. It will return with AI-agent capabilities in the future."
-    },
-    {
-        id: 7,
+        id: 6,
         question: 'How can I contact your team?',
-        answer: 'DM us on Twitter/X account or send us an email at support@tamagolabs.com.',
+        answer: 'DM us on Twitter/X account.',
     },
 ]
 
@@ -93,7 +88,7 @@ const Faq = () => {
                 </div>
             </div>
             <div className='grid grid-cols-3 mt-[40px] p-2 mx-auto w-full max-w-[250px] '>
-                <Icon url="https://x.com/Novatra">
+                <Icon url="https://x.com/ankita340">
                     <FaTwitter size={24} />
                 </Icon>
                 <Icon url="https://github.com/ankit875/novatra">

@@ -126,7 +126,7 @@ const Highlighted = () => {
   return (
     <div className="px-6 sm:px-1">
       <div className="text-center text-primary font-normal mb-2 sm:mb-4 text-sm sm:text-base tracking-widest uppercase">
-        highlighted markets
+        highlighted predictions
       </div>
 
       <Swiper

@@ -1,5 +1,6 @@
 import { useState, useEffect, useReducer } from "react"
 import { ArrowLeft, ArrowRight } from "react-feather"
+import Image from "next/image"
 import useDatabase from "@/hooks/useDatabase"
 import { secondsToDDHHMMSS, titleToIcon } from "@/helpers"
 import BigNumber from "bignumber.js"
@@ -155,198 +156,215 @@ const AvailableBets = ({ currentRound, marketData, onchainMarket, openBetModal }
                 title={"Outcome Results"}
                 maxWidth="max-w-xl"
             >
-
                 {infoModal && (
-                    <>
-                        <div className="grid grid-cols-2 py-2 text-gray">
-                            <div className=" py-0.5  col-span-2 text-lg font-semibold  text-white flex flex-row">
-                                {infoModal.title}
+                    <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl overflow-hidden mt-4">
+                        {/* Header */}
+                        <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 p-6 border-b border-white/10">
+                            <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent"></div>
+                            <div className="relative">
+                                <h3 className="text-xl font-bold text-white mb-3">{infoModal.title}</h3>
+                                
+                                {!infoModal.revealedTimestamp && (
+                                    <div className="space-y-3">
+                                        <div className="flex items-center space-x-2">
+                                            <span className="text-sm text-gray-300">Resolution Date:</span>
+                                            <span className="text-sm text-white font-medium">
+                                                {new Date(Number(infoModal.resolutionDate) * 1000).toLocaleDateString()}
+                                            </span>
+                                        </div>
+                                        <div className="bg-yellow-500/10 border border-yellow-400/20 rounded-xl p-4">
+                                            <div className="flex items-center justify-center space-x-2">
+                                                <span className="text-yellow-400">⏳</span>
+                                                <span className="text-white font-semibold">The result is not yet revealed</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {infoModal.revealedTimestamp && (
+                                    <div className="space-y-4">
+                                        <div className="flex items-center space-x-2">
+                                            <span className="text-sm text-gray-300">Checked At:</span>
+                                            <span className="text-sm text-white font-medium">
+                                                {new Date(Number(infoModal.revealedTimestamp) * 1000).toLocaleDateString()}
+                                            </span>
+                                        </div>
+                                        
+                                        <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-xl p-4 border border-gray-600/30">
+                                            <div className="grid grid-cols-2 gap-4 mb-3">
+                                                <div className="flex items-center space-x-2">
+                                                    <span className="text-sm text-gray-300">Result:</span>
+                                                    <span className="text-lg">{infoModal.isWon ? "✅" : "❌"}</span>
+                                                </div>
+                                                <div className="flex items-center space-x-2">
+                                                    <span className="text-sm text-gray-300">Disputed:</span>
+                                                    <span className="text-lg">{infoModal.isDisputed ? "✅" : "❌"}</span>
+                                                </div>
+                                            </div>
+                                            {infoModal.result && (
+                                                <div className="text-white text-sm bg-gray-700/30 rounded-lg p-3">
+                                                    {infoModal.result}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-
-                            {!infoModal.revealedTimestamp && (
-                                <>
-                                    <div className=" py-0.5 col-span-2  text-sm  flex flex-row">
-                                        <span className="font-bold mr-2">At:</span>
-                                        <div className={`   flex flex-row  text-white text-sm `}>
-                                            {` ${(new Date(Number(infoModal.resolutionDate) * 1000)).toUTCString()}`}
-                                        </div>
-                                    </div>
-                                    <div className="col-span-2 rounded-lg   h-[100px] mt-[10px] flex border border-gray/30">
-                                        <div className="m-auto text-white font-semibold">
-                                            The result is not yet revealed
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-
-                            {infoModal.revealedTimestamp && (
-                                <>
-                                    <div className=" py-0.5 col-span-2  text-sm  flex flex-row">
-                                        <span className="font-bold mr-2">Checked At:</span>
-                                        <div className={`   flex flex-row  text-white text-sm `}>
-                                            {` ${(new Date(Number(infoModal.revealedTimestamp) * 1000)).toUTCString()}`}
-                                        </div>
-                                    </div>
-                                    <div className="col-span-2 rounded-lg grid grid-cols-2 mt-[10px] p-4 py-2 border border-gray/30">
-                                        <div className=" py-0.5 col-span-1  text-sm  flex flex-row">
-                                            <span className="font-bold mr-2">Result:</span>
-                                            <div className={`   flex flex-row  text-white text-sm `}>
-                                                {infoModal.isWon ? "✅" : "❌"}
-                                            </div>
-                                        </div>
-                                        <div className=" py-0.5 col-span-1  text-sm  flex flex-row">
-                                            <span className="font-bold mr-2">Disputed:</span>
-                                            <div className={`   flex flex-row  text-white text-sm `}>
-                                                {infoModal.isDisputed ? "✅" : "❌"}
-                                            </div>
-                                        </div>
-                                        <div className=" py-0.5 col-span-2  text-sm  flex flex-row">
-                                            <div className="text-white my-1">
-                                                {infoModal.result}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </>
-                            )}
-
-
-
-                            {/* <div className=" py-0.5 text-sm  flex flex-row">
-                                            <span className="font-bold mr-2">Current Odds:</span>
-                                            <div className={`   flex flex-row  text-white text-sm `}>
-                                                {`${outcome.weight ? `${minOdds.toLocaleString()}-${`${maxOdds !== -1 ? maxOdds.toLocaleString() :"10"}`}` : "N/A"}`}
-                                            </div>
-                                        </div>
-                                        <div className=" py-0.5 text-sm  flex flex-row">
-                                            <span className="font-bold mr-2">Round Pool:</span>
-                                            <div className={`   flex flex-row  text-white text-sm `}>
-                                                {`${totalPool} USDC`}
-                                            </div>
-                                        </div>  */}
                         </div>
-                    </>
-                )
-
-                }
+                    </div>
+                )}
 
             </BaseModal>
 
-            <div className="flex flex-col my-2">
-
-                <div
-                    className="flex flex-row justify-between my-2 text-white ml-4 mx-4"
-                >
-                    <div className="flex text-secondary    cursor-pointer" onClick={() => current > 1 && setCurrent(current - 1)}>
-                        <ArrowLeft className="my-auto  " />
-                        <div className='my-auto'>Previous Round</div>
-                    </div>
-                    <div className=" uppercase text-2xl font-bold text-white  text-center px-4">
-                        Round {current} {current === currentRound && " 🆕"}
-                    </div>
-                    {currentRound > current ? (
-                        <div className=" flex text-secondary cursor-pointer" onClick={() => setCurrent(current + 1)}>
-                            <div className='my-auto'>Next Round</div>
-                            <ArrowRight className="my-auto " />
+            <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl overflow-hidden my-4">
+                {/* Round Navigation Header */}
+                <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 p-6 border-b border-white/10">
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent"></div>
+                    <div className="relative flex items-center justify-between">
+                        <button 
+                            className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+                                current > 1 
+                                    ? 'text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 cursor-pointer' 
+                                    : 'text-gray-500 cursor-not-allowed'
+                            }`}
+                            onClick={() => current > 1 && setCurrent(current - 1)}
+                            disabled={current <= 1}
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            <span className="font-medium">Previous Round</span>
+                        </button>
+                        
+                        <div className="text-center">
+                            <h2 className="text-2xl font-bold text-white">
+                                Round {current} {current === currentRound && <span className="text-green-400">🆕</span>}
+                            </h2>
                         </div>
-                    ) : <div className="flex w-[100px]"></div>}
-
+                        
+                        {currentRound > current ? (
+                            <button 
+                                className="flex items-center space-x-2 px-4 py-2 rounded-lg text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 transition-all cursor-pointer"
+                                onClick={() => setCurrent(current + 1)}
+                            >
+                                <span className="font-medium">Next Round</span>
+                                <ArrowRight className="w-5 h-5" />
+                            </button>
+                        ) : (
+                            <div className="w-[140px]"></div>
+                        )}
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-3 my-1 mb-0">
-                    <div className="flex flex-row">
-                        <div className="text-white my-auto text-sm mr-2 font-semibold">
-                            Sort by
+                {/* Filters and Status */}
+                <div className="p-6 border-b border-white/10">
+                    <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center space-x-4">
+                            <span className="text-white font-semibold">Sort by:</span>
+                            <select 
+                                value={sorted} 
+                                onChange={(e: any) => dispatch({ sorted: e.target.value })}
+                                className="p-3 px-4 rounded-xl text-sm bg-gray-800/50 border border-gray-600/50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all"
+                            >
+                                <option value={SortBy.MostPopular}>Most Popular</option>
+                                <option value={SortBy.HighestOdds}>Highest Odds</option>
+                                <option value={SortBy.LowestOdds}>Lowest Odds</option>
+                                <option value={SortBy.Newest}>Newest</option>
+                            </select>
                         </div>
-                        <select value={sorted} onChange={(e: any) => {
-                            dispatch({ sorted: e.target.value })
-                        }} className="  p-2 px-3 py-1 cursor-pointer my-auto rounded-lg text-sm bg-[#141F32] border border-gray/30 placeholder-gray text-white focus:outline-none">
-                            <option value={SortBy.MostPopular}>Most Popular</option>
-                            <option value={SortBy.HighestOdds}>Highest Odds</option>
-                            <option value={SortBy.LowestOdds}>Lowest Odds</option>
-                            <option value={SortBy.Newest}>Newest</option>
-                        </select>
+                        
+                        <div className="flex items-center space-x-2">
+                            <span className="text-yellow-400">🏦</span>
+                            <span className="text-white font-semibold">
+                                Pool Size: <span className="text-green-400">{poolSize.toLocaleString() || 0} USDC</span>
+                            </span>
+                        </div>
                     </div>
-                    <div className="text-center flex">
+                    
+                    {/* Status Indicator */}
+                    <div className="text-center">
                         {currentRound === current && (
-                            <div className="text-white text-sm my-auto mx-auto font-semibold">
-                                🟢 Accepting bets for the next {endIn}
+                            <div className="inline-flex items-center space-x-2 bg-green-500/10 border border-green-400/20 rounded-full px-4 py-2">
+                                <span className="text-green-400">🟢</span>
+                                <span className="text-white font-medium">
+                                    Accepting bets for the next {endIn}
+                                </span>
                             </div>
                         )}
                         {currentRound > current && (
-                            <>
+                            <div className="inline-flex items-center space-x-2 bg-yellow-500/10 border border-yellow-400/20 rounded-full px-4 py-2">
                                 {(currentRound - current === 1) ? (
-                                    <div className="text-white text-sm my-auto mx-auto font-semibold">
-                                        🟡 Determining winning outcomes
-                                    </div>
+                                    <>
+                                        <span className="text-yellow-400">🟡</span>
+                                        <span className="text-white font-medium">
+                                            Determining winning outcomes
+                                        </span>
+                                    </>
                                 ) : (
-                                    <div className="text-white text-sm my-auto mx-auto font-semibold">
-                                        🔵 All outcomes have been revealed and verified
-                                    </div>
+                                    <>
+                                        <span className="text-blue-400">🔵</span>
+                                        <span className="text-white font-medium">
+                                            All outcomes have been revealed and verified
+                                        </span>
+                                    </>
                                 )}
-                            </>
-                        )}
-
-                    </div>
-                    <div className="text-white my-auto text-sm ml-auto font-semibold">
-                        🏦 Current Pool Size: {poolSize.toLocaleString() || 0} USDC
-                    </div>
-                </div>
-
-                <div className="my-4 grid grid-cols-3 gap-3">
-                    {loading === false && outcomesSorted.map((entry: any, index: number) => {
-
-                        return (
-                            <div key={index}>
-                                <OutcomeCard
-                                    index={index}
-                                    item={entry}
-                                    openBetModal={openBetModal}
-                                    openInfoModal={() => dispatch({ infoModal: entry })}
-                                    marketData={marketData}
-                                    current={current}
-                                    minOdds={entry.minOdds}
-                                    maxOdds={entry.maxOdds}
-                                    odds={entry.odds}
-                                    isPast={currentRound > current}
-                                />
                             </div>
-                        )
-                    })}
-
-                    {loading === true && <>
-                        <div className='overflow-hidden   opacity-60'>
-                            <Skeleton height={120} />
-                        </div>
-                        <div className='overflow-hidden  opacity-60'>
-                            <Skeleton height={120} />
-                        </div>
-                        <div className='overflow-hidden  opacity-60'>
-                            <Skeleton height={120} />
-                        </div>
-                        <div className='overflow-hidden   opacity-60'>
-                            <Skeleton height={120} />
-                        </div>
-                        <div className='overflow-hidden  opacity-60'>
-                            <Skeleton height={120} />
-                        </div>
-                        <div className='overflow-hidden  opacity-60'>
-                            <Skeleton height={120} />
-                        </div> 
-                        <div className='overflow-hidden   opacity-60'>
-                            <Skeleton height={120} />
-                        </div>
-                        <div className='overflow-hidden  opacity-60'>
-                            <Skeleton height={120} />
-                        </div>
-                        <div className='overflow-hidden  opacity-60'>
-                            <Skeleton height={120} />
-                        </div>
-                    </>
-
-                    }
-
+                        )}
+                    </div>
                 </div>
+            </div>
+
+            <div className="my-4 grid grid-cols-3 gap-3">
+                {loading === false && outcomesSorted.map((entry: any, index: number) => {
+
+                    return (
+                        <div key={index}>
+                            <OutcomeCard
+                                index={index}
+                                item={entry}
+                                openBetModal={openBetModal}
+                                openInfoModal={() => dispatch({ infoModal: entry })}
+                                marketData={marketData}
+                                current={current}
+                                minOdds={entry.minOdds}
+                                maxOdds={entry.maxOdds}
+                                odds={entry.odds}
+                                isPast={currentRound > current}
+                            />
+                        </div>
+                    )
+                })}
+
+                {loading === true && <>
+                    <div className='overflow-hidden   opacity-60'>
+                        <Skeleton height={120} />
+                    </div>
+                    <div className='overflow-hidden  opacity-60'>
+                        <Skeleton height={120} />
+                    </div>
+                    <div className='overflow-hidden  opacity-60'>
+                        <Skeleton height={120} />
+                    </div>
+                    <div className='overflow-hidden   opacity-60'>
+                        <Skeleton height={120} />
+                    </div>
+                    <div className='overflow-hidden  opacity-60'>
+                        <Skeleton height={120} />
+                    </div>
+                    <div className='overflow-hidden  opacity-60'>
+                        <Skeleton height={120} />
+                    </div> 
+                    <div className='overflow-hidden   opacity-60'>
+                        <Skeleton height={120} />
+                    </div>
+                    <div className='overflow-hidden  opacity-60'>
+                        <Skeleton height={120} />
+                    </div>
+                    <div className='overflow-hidden  opacity-60'>
+                        <Skeleton height={120} />
+                    </div>
+                </>
+
+                }
+
             </div>
         </>
     )
@@ -359,53 +377,79 @@ const OutcomeCard = ({ index, item, current, marketData, openInfoModal, openBetM
     const icon = titleToIcon(item?.title)
 
     return (
-        <div onClick={() => {
-
-            !isPast && openBetModal({
-                marketId: marketData.id,
-                roundId: current,
-                outcomeId: item.onchainId,
-            })
-            isPast && openInfoModal()
-
-        }} className=" h-[150px] p-4 px-2 border-2 flex flex-col cursor-pointer border-white/[0.1] bg-transparent bg-gradient-to-b from-white/5 to-transparent rounded-lg" >
-
-            <div className="flex flex-row">
-                <img className="h-8 sm:h-10 w-8 sm:w-10 my-auto rounded-full" src={icon} alt="" />
-                <div className="px-2">
-                    <p className="text-white font-semibold line-clamp-2">
-                        {item?.title}
-                    </p>
-                </div>
-            </div>
-            <div className="px-2 text-sm font-semibold my-1">
-                At: {` ${(new Date(Number(item.resolutionDate) * 1000)).toUTCString()}`}
-            </div>
-            <div className="flex px-2 flex-row my-1 mt-auto justify-between">
-                <div className=" ">
-                    <p className="text-white text-base font-semibold">🔥{` ${item.totalBetAmount || 0} USDC`}</p>
-                </div>
-                {/* {item.totalBetAmount && (
-                    <div className=" ">
-                        <p className="text-white  font-semibold"> 🔥 </p>
+        <div 
+            onClick={() => {
+                !isPast && openBetModal({
+                    marketId: marketData.id,
+                    roundId: current,
+                    outcomeId: item.onchainId,
+                })
+                isPast && openInfoModal()
+            }} 
+            className="group relative bg-gradient-to-br from-gray-800/40 via-gray-900/60 to-black/80 rounded-xl p-5 border border-gray-600/30 hover:border-blue-500/50 transition-all duration-300 cursor-pointer hover:transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/10"
+        >
+            {/* Background gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            
+            <div className="relative space-y-4">
+                {/* Header with icon and title */}
+                <div className="flex items-start space-x-3">
+                    <Image 
+                        className="h-10 w-10 rounded-full flex-shrink-0" 
+                        src={icon} 
+                        alt={item?.title || "Outcome"}
+                        width={40}
+                        height={40}
+                    />
+                    <div className="min-w-0 flex-1">
+                        <h4 className="text-white font-semibold text-sm line-clamp-2 leading-tight">
+                            {item?.title}
+                        </h4>
                     </div>
-                )} */}
-                {/* <div className=" ">
-                    <p className="text-white  font-semibold">🕒{` ${ (new Date( Number(item.resolutionDate) * 1000 )).toLocaleDateString()}`}</p>
-                </div> */}
+                </div>
 
+                {/* Resolution date */}
+                <div className="text-xs text-gray-400">
+                    <span className="font-medium">Resolves:</span> {new Date(Number(item.resolutionDate) * 1000).toLocaleDateString()}
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-gray-700/30 rounded-lg p-3">
+                        <div className="flex items-center space-x-1">
+                            <span className="text-sm">🔥</span>
+                            <span className="text-white font-semibold text-sm">{item.totalBetAmount || 0} USDC</span>
+                        </div>
+                        <div className="text-xs text-gray-400 mt-1">Bet Volume</div>
+                    </div>
+                    
+                    <div className="bg-gray-700/30 rounded-lg p-3">
+                        <div className="flex items-center space-x-1">
+                            <span className="text-sm">🔢</span>
+                            <span className="text-white font-semibold text-sm">
+                                {item.weight ? `${item.weight.toLocaleString()}%` : "N/A"}
+                            </span>
+                        </div>
+                        <div className="text-xs text-gray-400 mt-1">Weight</div>
+                    </div>
+                </div>
+
+                {/* Status indicator for past outcomes */}
                 {isPast && (
-                    <div className=" ">
-                        {item.revealedTimestamp && <> {item.isWon ? "✅" : item.isDisputed ? "⚠️" : "❌"} </>}
+                    <div className="flex justify-center">
+                        {item.revealedTimestamp && (
+                            <div className="flex items-center space-x-1">
+                                <span className="text-lg">
+                                    {item.isWon ? "✅" : item.isDisputed ? "⚠️" : "❌"}
+                                </span>
+                                <span className="text-sm text-gray-300">
+                                    {item.isWon ? "Won" : item.isDisputed ? "Disputed" : "Lost"}
+                                </span>
+                            </div>
+                        )}
                     </div>
                 )}
-
-                <div className=" flex flex-row">
-                    <p className="text-white text-base font-semibold">🔢{`${item.weight ? ` ${item.weight.toLocaleString()}%` : "N/A"}`}</p>
-                </div>
-
             </div>
-
         </div>
     );
 }
