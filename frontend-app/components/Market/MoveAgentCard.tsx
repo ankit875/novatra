@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const MoveAgentKitCard = () => {
     return (
-        <Link href="/markets/aptos-defi-ecosystem">
+        <Link href="/markets/aptos-defi">
             <div className="flex flex-col group cursor-pointer">
                 <div className={`  bg-black bg-gradient-to-b  from-white/[0.03]  to-transparent hidden  md:flex flex-row rounded-lg  overflow-hidden  border  border-gray/30   h-[90px]  `} >
                     <img src={"./assets/images/move-agent-kit.png"} className="h-full scale-125 rotate-6" alt="" />

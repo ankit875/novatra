@@ -114,5 +114,5 @@ Use your own deployment addresses; these are placeholders from earlier developme
 
 | Component | ID/Address |
 |-----------|------------|
-| Package ID | `0xab3922ccb1794928abed8f5a5e8d9dac72fed24f88077e46593bed47dcdb7775` |
-| Mock USDC | `0xc77afa5c74640e7d0f34a7cca073ea4e26d126c60c261b5c2b16c97ac6484f01` |
+| Package ID | `0x896f7c28432dc223478a0ff3e9325d23f97e8bc261c1896eab85ee20c1f66183` |
+| Mock USDC | `0x74432d8fdde5be368d1fe3b717046e78bd712cc143000ccba136d2a16eb273be` |

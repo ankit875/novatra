@@ -27,7 +27,9 @@ const AptosLayout = ({ children }: PropsWithChildren) => {
 
     return (
         <AptosWalletAdapterProvider
-            optInWallets={wallets}
+            optInWallets={[
+                "Petra"
+            ]}
             autoConnect={true}
         >
             {children}

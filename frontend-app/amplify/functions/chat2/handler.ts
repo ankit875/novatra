@@ -11,7 +11,7 @@ import { AgentRuntime, LocalSigner, createAptosTools } from "move-agent-kit"
 const llm = new ChatOpenAI({
   temperature: 0.7,
   model: "gpt-4o",
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: env.OPENAI_API_KEY
 })
 
 export const handler: Schema["Chat2"]["functionHandler"] = async (event) => {

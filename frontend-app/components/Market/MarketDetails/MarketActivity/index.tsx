@@ -66,8 +66,8 @@ const MarketActivity = () => {
                     <div className='text-gray text-lg font-semibold mr-1 '>
                         Smart Contract Address:
                     </div>
-                    <a href="https://explorer.aptoslabs.com/account/0x7944f938bac0fb3abfffaa2684bc108d7f24aea1c1f585100615f41124814a5c?network=testnet" target="_blank" className="text-lg  text-secondary">
-                        {shortAddress("0x7944f938bac0fb3abfffaa2684bc108d7f24aea1c1f585100615f41124814a5c", 10, -8)}
+                    <a href="https://explorer.aptoslabs.com/account/0x896f7c28432dc223478a0ff3e9325d23f97e8bc261c1896eab85ee20c1f66183?network=testnet" target="_blank" className="text-lg  text-secondary">
+                        {shortAddress("0x896f7c28432dc223478a0ff3e9325d23f97e8bc261c1896eab85ee20c1f66183", 10, -8)}
                     </a>
                 </div>
             </div>

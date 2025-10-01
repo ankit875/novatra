@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic'
 
-const MarketDetailsMoveAgentKit = dynamic(() => import('@/components/Market/MarketDetails/MoveAgentKit'), { ssr: false })
+const MarketDetailsMoveAgentKit = dynamic(() => import('@/components/Market/MoveAgentKit'), { ssr: false })
 
 const MarketDetailsPage = () => {
     return (
