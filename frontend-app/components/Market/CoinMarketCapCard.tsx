@@ -39,15 +39,15 @@ const CoinMarketCapCard = () => {
                                 <div className="flex items-center space-x-6 text-sm">
                                     <div className="flex items-center space-x-2">
                                         <Users size={16} className="text-orange-400" />
-                                        <span className="text-gray-400">156 Predictors</span>
+                                        <span className="text-gray-400">- Predictors</span>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <DollarSign size={16} className="text-green-400" />
-                                        <span className="text-gray-400">$8.2K Volume</span>
+                                        <span className="text-gray-400">- Volume</span>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <TrendingUp size={16} className="text-blue-400" />
-                                        <span className="text-gray-400">+12% 24h</span>
+                                        <span className="text-gray-400">- 24h</span>
                                     </div>
                                 </div>
                             </div>

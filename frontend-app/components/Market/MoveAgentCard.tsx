@@ -44,15 +44,15 @@ const MoveAgentKitCard = () => {
                                 <div className="flex items-center space-x-6 text-sm">
                                     <div className="flex items-center space-x-2">
                                         <Activity size={16} className="text-blue-400" />
-                                        <span className="text-gray-400">89 Active Agents</span>
+                                        <span className="text-gray-400">- Active Agents</span>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <BarChart size={16} className="text-green-400" />
-                                        <span className="text-gray-400">$4.3K Volume</span>
+                                        <span className="text-gray-400">- Volume</span>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <TrendingUp size={16} className="text-purple-400" />
-                                        <span className="text-gray-400">+31% 24h</span>
+                                        <span className="text-gray-400">- 24h</span>
                                     </div>
                                 </div>
                             </div>

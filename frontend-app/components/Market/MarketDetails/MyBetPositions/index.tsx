@@ -394,7 +394,7 @@ const PositionCard = ({ position, rounds, market, openModal }: any) => {
           </h4>
           <div className="flex items-center justify-between text-xs">
             <span className="text-gray-300">
-              Round {position.roundId}
+              Round ({position.roundId})
             </span>
             <span className="text-gray-400">
               {new Date(startPeriod).toLocaleDateString()} - {new Date(endPeriod).toLocaleDateString()}
