@@ -1,33 +1,12 @@
 import { PropsWithChildren } from 'react';
 
 import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
-
-import { MartianWallet } from "@martianwallet/aptos-wallet-adapter"
-import { AptosWalletAdapterProvider } from '@aptos-labs/wallet-adapter-react'
-import { BitgetWallet } from "@bitget-wallet/aptos-wallet-adapter";
-import { FewchaWallet } from "fewcha-plugin-wallet-adapter";
-import { PontemWallet } from "@pontem/wallet-adapter-plugin";
-import { OKXWallet } from "@okwallet/aptos-wallet-adapter";
-import { TrustWallet } from "@trustwallet/aptos-wallet-adapter";
-import { PetraWallet } from 'petra-plugin-wallet-adapter';
-
-const wallets: any = [
-    new BitgetWallet(),
-    new FewchaWallet(),
-    new MartianWallet(),
-    new PontemWallet(),
-    new TrustWallet(),
-    new OKXWallet(),
-    new PetraWallet()
-];
+import { AptosWalletAdapterProvider } from '@aptos-labs/wallet-adapter-react';
 
 const AptosLayout = ({ children }: PropsWithChildren) => {
 
     return (
         <AptosWalletAdapterProvider
-            optInWallets={[
-                "Petra"
-            ]}
             autoConnect={true}
         >
             {children}

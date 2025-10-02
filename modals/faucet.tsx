@@ -33,7 +33,7 @@ const Faucet = ({
 
     useEffect(() => {
         if (address) {
-            dispatch({ name: address })
+            dispatch({ name: address.toString() })
         }
     }, [address])
 
