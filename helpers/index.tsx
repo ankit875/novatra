@@ -27,7 +27,7 @@ export const secondsToDDHHMMSS = (totalSeconds: number) => {
 
 export const titleToIcon = (title: string) => {
 
-    let icon = "/assets/images/aptos-logo.png"
+    let icon = "/assets/images/question-mark.png"
 
     if (title.includes("BTC") || title.includes("Bitcoin")) {
         icon = "/assets/images/btc-icon.png"

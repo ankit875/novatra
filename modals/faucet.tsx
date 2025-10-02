@@ -6,8 +6,18 @@ import { generateClient } from "aws-amplify/api"
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Puff } from 'react-loading-icons'
 import { NovatraContext } from "@/hooks/useNovatra"
+import { configureAmplify } from "@/lib/amplify"
 
-const client = generateClient<Schema>()
+// Create client lazily to ensure Amplify is configured
+let client: ReturnType<typeof generateClient<Schema>> | null = null;
+
+const getClient = () => {
+  if (!client) {
+    configureAmplify();
+    client = generateClient<Schema>();
+  }
+  return client;
+};
 
 const Faucet = ({
     visible,
@@ -48,7 +58,7 @@ const Faucet = ({
 
         dispatch({ loading: true })
         try {
-            const { data } = await client.queries.Faucet({
+            const { data } = await getClient().queries.Faucet({
                 name,
             })
             console.log(data)

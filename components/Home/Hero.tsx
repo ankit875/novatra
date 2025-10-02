@@ -64,9 +64,9 @@ const Hero = () => {
               setModal(false);
             }}
             type="button"
-            className="btn rounded-lg  bg-white py-3.5 w-[120px]  hover:text-black hover:bg-white "
+            className="btn"
           >
-            close
+            Close
           </button>
         </div>
         <p className="text-center mx-auto max-w-full sm:max-w-md text-xs sm:text-sm text-secondary/90 font-semibold mt-4 mb-2  ">
@@ -74,40 +74,38 @@ const Hero = () => {
           Mainnet and Sui launching soon
         </p>
       </BaseModal>
-      <section className=" bg-no-repeat" style={{ backgroundColor: 'rgb(9 69 162)' }}>
+      <section className="bg-gradient-to-br from-black via-gray-dark to-black">
         <div className="py-24 bg-gradient-to-r from-secondary/20 via-primary/10 to-secondary/20 lg:py-32">
           <div className="container mx-auto px-6">
-        <div className="flex">
-          <div className="mx-auto text-center">
-            <h1
-          className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl"
-          data-aos="fade-up"
-          data-aos-duration="1000"
-            >
-                  <span className="block xl:inline">
-                    <span className="mb-1 block">Predict, Stake, and Earn</span>
-                    <span className="bg-gradient-to-r from-secondary/80 to-secondary/40 bg-clip-text text-transparent">
-                      with Novatra AI
-                    </span>
-                  </span>
-                </h1>
+            {/* Hero Content */}
+            <div className="heading mb-8 text-center">
+              <div className="flex items-center justify-center mb-4">
+                <span className="inline-flex items-center bg-gradient-to-r from-secondary/20 to-secondary/10 px-4 py-2 rounded-full text-secondary font-semibold text-sm tracking-wide backdrop-blur-sm border border-secondary/20">
+                  🚀 AI-POWERED PREDICTIONS
+                </span>
               </div>
-            </div>
-            <div className="mx-2 sm:mx-6">
-              <p className="mt-[20px] sm:mt-[40px] text-center mx-auto mb-[20px] max-w-[700px] text-sm sm:text-lg lg:text-xl font-normal sm:font-semibold text-gray">
+              <h1 className="text-4xl lg:text-5xl font-black bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-transparent mb-6">
+                <span className="block">
+                  Predict, Stake, and Earn
+                </span>
+                <span className="bg-gradient-to-r from-secondary to-secondary/70 bg-clip-text text-transparent">
+                  with Novatra AI
+                </span>
+              </h1>
+              <p className="text-xl text-gray-300 font-medium max-w-2xl mx-auto leading-relaxed mb-8">
                 Leverage cutting-edge AI to forecast market outcomes, propose new events, and claim rewards
               </p>
               
-              <div className="text-center mt-8">
-                <button className="bg-gradient-to-r from-secondary to-primary hover:from-secondary/80 hover:to-primary/80 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center mx-auto">
+              <div className="text-center">
+                <button className="btn flex items-center mx-auto">
                   Create New Market
                   <ArrowRight size={18} className="ml-2" />
                 </button>
               </div>
             </div>
-            
           </div>
 
+          {/* Highlighted Predictions Section */}
           <Highlighted />
         </div>
       </section>
@@ -124,52 +122,83 @@ const Highlighted = () => {
   }, [getAllOutcomes]);
 
   return (
-    <div className="px-6 sm:px-1">
-      <div className="text-center text-primary font-normal mb-2 sm:mb-4 text-sm sm:text-base tracking-widest uppercase">
-        highlighted predictions
+    <div className="px-6 sm:px-1 mt-16">
+      <div className="heading mb-8 text-center">
+        <div className="flex items-center justify-center mb-4">
+          <span className="inline-flex items-center bg-gradient-to-r from-primary/20 to-primary/10 px-4 py-2 rounded-full text-primary font-semibold text-sm tracking-wide backdrop-blur-sm border border-primary/20">
+             HIGHLIGHTED PREDICTIONS
+          </span>
+        </div>
+        {outcomes.length > 0 && (
+          <p className="text-gray-400 text-sm">
+            {outcomes.length} Active Market{outcomes.length !== 1 ? 's' : ''} • Scroll to explore more
+          </p>
+        )}
       </div>
 
+      {/* Enhanced Swiper with better scrolling for many items */}
       <Swiper
-        spaceBetween={30}
+        spaceBetween={20}
         centeredSlides={false}
         slidesPerView={5}
-        autoplay={{
-          delay: 5000,
+        autoplay={outcomes.length <= 10 ? {
+          delay: 4000,
           disableOnInteraction: false,
-        }}
-        loop={false}
+        } : false} // Disable autoplay if too many items
+        loop={outcomes.length > 5} // Enable loop only if more than visible items
         navigation={true}
+        scrollbar={{
+          hide: false,
+          draggable: true,
+        }}
         modules={[Autoplay, Navigation]}
-        className="mySwiper"
+        className="mySwiper highlighted-swiper"
         breakpoints={{
           320: {
-            slidesPerView: 1,
-            spaceBetween: 20,
+            slidesPerView: 1.2,
+            spaceBetween: 16,
+          },
+          480: {
+            slidesPerView: 1.5,
+            spaceBetween: 16,
           },
           640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
+            slidesPerView: 2.2,
+            spaceBetween: 18,
           },
           768: {
-            slidesPerView: 4,
-            spaceBetween: 30,
+            slidesPerView: 3.2,
+            spaceBetween: 20,
           },
           1024: {
-            slidesPerView: 5,
-            spaceBetween: 30,
+            slidesPerView: 4.2,
+            spaceBetween: 22,
           },
+          1280: {
+            slidesPerView: 5.2,
+            spaceBetween: 24,
+          },
+          1536: {
+            slidesPerView: 6.2,
+            spaceBetween: 26,
+          },
+        }}
+        style={{
+          paddingBottom: '20px', // Space for scrollbar
         }}
       >
         {outcomes.length === 0 && (
-          <div className="grid grid-cols-3 gap-5 max-w-5xl mx-auto">
-            <div className="overflow-hidden opacity-60">
-              <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
-            </div>
-            <div className="overflow-hidden opacity-60">
-              <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
-            </div>
-            <div className="overflow-hidden opacity-60">
-              <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
+          <div className="w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+              <div className="overflow-hidden opacity-60">
+                <Skeleton height={140} baseColor="#1C2331" highlightColor="#7780A1" />
+              </div>
+              <div className="overflow-hidden opacity-60">
+                <Skeleton height={140} baseColor="#1C2331" highlightColor="#7780A1" />
+              </div>
+              <div className="overflow-hidden opacity-60">
+                <Skeleton height={140} baseColor="#1C2331" highlightColor="#7780A1" />
+              </div>
             </div>
           </div>
         )}
@@ -190,7 +219,7 @@ const Highlighted = () => {
           }
 
           return (
-            <SwiperSlide key={index}>
+            <SwiperSlide key={`${item.title}-${index}`} className="h-auto">
               <MarketCard
                 market_name={item.title}
                 icon={icon}
@@ -200,6 +229,26 @@ const Highlighted = () => {
             </SwiperSlide>
           );
         })}
+
+        {/* Show All Markets Button */}
+        {outcomes.length > 10 && (
+          <SwiperSlide className="h-auto">
+            <Link href="/markets">
+              <div className="group cursor-pointer h-full">
+                <div className="relative bg-gradient-to-br from-secondary/10 via-secondary/5 to-transparent rounded-xl p-4 border border-secondary/20 hover:border-secondary/40 transition-all duration-500 backdrop-blur-sm hover:shadow-xl hover:shadow-secondary/10 overflow-hidden h-full min-h-[140px] flex flex-col items-center justify-center">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
+                  <div className="relative text-center">
+                    <Plus size={24} className="text-secondary mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
+                    <h3 className="text-white font-bold text-sm mb-1">View All</h3>
+                    <p className="text-gray-300 text-xs">
+                      {outcomes.length - 10}+ more markets
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+        )}
       </Swiper>
     </div>
   );

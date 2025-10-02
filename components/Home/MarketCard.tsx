@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Clock, ArrowRight, DollarSign } from "react-feather";
 
 interface IMarketCard {
   market_name: string;
@@ -17,36 +18,76 @@ const MarketCard = ({
   chains,
   tag,
 }: IMarketCard) => {
- return (
-        <Link href="/markets/coinmarketcap" >
-            <div className="p-4 px-2 border-2 cursor-pointer border-white/[0.1] bg-transparent bg-gradient-to-b from-white/5 to-transparent rounded-lg">
-                <div className="flex flex-row">
-                    <img className="h-8 sm:h-10 w-8 sm:w-10 my-auto rounded-full" src={icon} alt="" />
-                    <div className="px-2 min-h-[70px]">
-                        <p className="text-white font-semibold line-clamp-3">
-                            {market_name}
-                        </p>
-                    </div>
-
-                </div>
-                
-                <div className="flex flex-row my-1 justify-between">
-                    <div className=" ">
-                        <p className="text-white text-base font-semibold">🕒{` in ${close_in} days`}</p>
-
-                    </div>
-                    <div>
-                    </div>
-                    <div className="flex flex-row ">
-                        <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png" className="h-5 w-5 my-auto mx-1.5" />
-                        <p className="text-white text-base font-semibold">
-                            {` ${popular_outcome || 0} USDC`}</p>
-                    </div>
-                </div>
+  return (
+    <Link href="/markets/coinmarketcap">
+      <div className="group cursor-pointer">
+        <div className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-xl p-4 border border-primary/20 hover:border-primary/40 transition-all duration-500 backdrop-blur-sm hover:shadow-xl hover:shadow-primary/10 overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-primary/10 to-transparent rounded-full blur-xl"></div>
+          
+          <div className="relative flex items-start space-x-3">
+            {/* Logo Section */}
+            <div className="flex-shrink-0 relative">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-primary/30 group-hover:scale-105 transition-transform duration-300">
+                <img 
+                  src={icon || '/assets/images/question-mark.png'} 
+                  className="w-8 h-8 rounded-lg object-cover" 
+                  alt={market_name || 'Market icon'}
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    if (img.src !== '/assets/images/question-mark.png') {
+                      img.src = '/assets/images/question-mark.png';
+                    }
+                  }}
+                />
+              </div>
+              {tag && (
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse border border-black"></div>
+              )}
             </div>
 
-        </Link>
-    );
+            {/* Content Section */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between mb-2">
+                <h3 className="text-white font-bold text-base line-clamp-2 group-hover:text-primary/90 transition-colors duration-300 leading-tight max-w-[140px]">
+                  {market_name}
+                </h3>
+                <ArrowRight 
+                  size={18} 
+                  className="text-gray group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 mt-0.5" 
+                />
+              </div>
+              
+              {/* Stats Row */}
+              <div className="flex items-center justify-between text-sm">
+                {/* Time left */}
+                <div className="flex items-center space-x-1">
+                  <Clock size={14} className="text-secondary" />
+                  <span className="text-gray-300 font-medium">
+                    {close_in ? `${close_in}d` : 'TBD'}
+                  </span>
+                </div>
+
+                {/* Volume */}
+                <div className="flex items-center space-x-1">
+                  <DollarSign size={14} className="text-green-400" />
+                  <img 
+                    src="https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png" 
+                    className="h-4 w-4" 
+                    alt="USDC"
+                  />
+                  <span className="text-primary font-semibold text-sm">
+                    {popular_outcome || '0'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
 };
 
 export default MarketCard;

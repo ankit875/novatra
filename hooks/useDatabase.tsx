@@ -1,32 +1,41 @@
 import { generateClient } from "aws-amplify/data";
 import FirecrawlApp from "@mendable/firecrawl-js";
 import type { Schema } from "../amplify/data/resource";
+import { configureAmplify } from "@/lib/amplify";
 
 const FIRECRAWL_API_KEY = process.env.FIRECRAWL_API_KEY || "";
 
-const client = generateClient<Schema>({ authMode: "apiKey" });
-
 const app = new FirecrawlApp({ apiKey: FIRECRAWL_API_KEY });
+
+// Create client lazily to ensure Amplify is configured
+let client: ReturnType<typeof generateClient<Schema>> | null = null;
+
+const getClient = () => {
+  if (!client) {
+    configureAmplify();
+    client = generateClient<Schema>({ authMode: "apiKey" });
+  }
+  return client;
+};
 
 const useDatabase = () => {
   const getProfile = async (userId: string) => {
+    const amplifyClient = getClient();
     console.log(
       "Fetching profile for userId:",
-      await client.models.User.list()
+      await amplifyClient.models.User.list()
     );
-    const user = await client.models.User.list({
-      filter: {
-        username: {
-          eq: userId,
-        },
-      },
-    });
+    // Use manual filtering for reliability
+    const allUsers = await amplifyClient.models.User.list();
+    const user = {
+      data: allUsers.data.filter(u => u.username === userId)
+    };
 
     if (user.data.length === 0) {
       const newUser = {
         username: userId,
       };
-      await client.models.User.create({
+      await amplifyClient.models.User.create({
         ...newUser,
       });
       return newUser;
@@ -36,32 +45,33 @@ const useDatabase = () => {
   };
 
   const getMarketData = async (marketId: number) => {
-    const markets = await client.models.Market.list({
-      filter: {
-        onchainId: {
-          eq: marketId,
-        },
-      },
-    });
-    return markets && markets.data[0] ? markets.data[0] : undefined;
+    try {
+      // Use manual filtering since GraphQL filters don't work reliably
+      const allMarkets = await getClient().models.Market.list();
+      
+      // Filter manually for the matching onchainId
+      const matchingMarket = allMarkets.data.find(market => {
+        return market.onchainId === marketId;
+      });
+      
+      return matchingMarket || undefined;
+    } catch (error) {
+      console.error('❌ Error in getMarketData:', error);
+      throw error;
+    }
   };
 
   const getMyPositions = async (userId: string, marketId: string) => {
-    const positions = await client.models.Position.list({
-      filter: {
-        userId: {
-          eq: userId,
-        },
-        marketId: {
-          eq: marketId,
-        },
-      },
-    });
-    return positions.data;
+    // Use manual filtering for reliability
+    const allPositions = await getClient().models.Position.list();
+    const filteredPositions = allPositions.data.filter(position => 
+      position.userId === userId && position.marketId === marketId
+    );
+    return filteredPositions;
   };
 
   const getRecentPositions = async () => {
-    const positions = await client.models.Position.list({
+    const positions = await getClient().models.Position.list({
       limit: 10,
     });
     return positions.data.map((item) => {
@@ -73,7 +83,7 @@ const useDatabase = () => {
   };
 
   const getRecentOutcomes = async () => {
-    const outcomes = await client.models.Outcome.list({
+    const outcomes = await getClient().models.Outcome.list({
       limit: 10,
     });
     return outcomes.data.map((item) => {
@@ -93,23 +103,21 @@ const useDatabase = () => {
   };
 
   const getResources = async () => {
-    const resources = await client.models.Resource.list();
+    const resources = await getClient().models.Resource.list();
     return resources.data;
   };
 
   const getOutcomeById = async (outcomeId: number) => {
-    const outcomes = await client.models.Outcome.list({
-      filter: {
-        onchainId: {
-          eq: outcomeId,
-        },
-      },
-    });
-    return outcomes && outcomes.data[0] ? outcomes.data[0] : undefined;
+    // Use manual filtering for reliability
+    const allOutcomes = await getClient().models.Outcome.list();
+    const matchingOutcome = allOutcomes.data.find(outcome => 
+      outcome.onchainId === outcomeId
+    );
+    return matchingOutcome || undefined;
   };
 
   const getOutcomes = async (marketId: string, roundId: number) => {
-    const market = await client.models.Market.get({
+    const market = await getClient().models.Market.get({
       id: marketId,
     });
 
@@ -131,7 +139,7 @@ const useDatabase = () => {
   };
 
   const getAllOutcomes = async () => {
-    const markets = await client.models.Market.list();
+    const markets = await getClient().models.Market.list();
 
     let output: any = [];
 
@@ -156,7 +164,7 @@ const useDatabase = () => {
     resolutionDate,
   }: any) => {
     // create new round if not exist
-    const market = await client.models.Market.get({
+    const market = await getClient().models.Market.get({
       id: marketId,
     });
 
@@ -170,7 +178,7 @@ const useDatabase = () => {
     );
 
     if (!thisRound) {
-      await client.models.Round.create({
+      await getClient().models.Round.create({
         marketId,
         onchainId: Number(roundId),
       });
@@ -180,7 +188,7 @@ const useDatabase = () => {
       );
     }
 
-    const outcomes = await client.models.Outcome.list();
+    const outcomes = await getClient().models.Outcome.list();
 
     const maxOutcomeId = outcomes.data.reduce((result: number, item: any) => {
       if (item.onchainId > result) {
@@ -191,7 +199,7 @@ const useDatabase = () => {
 
     const onchainId = maxOutcomeId + 1;
 
-    await client.models.Outcome.create({
+    await getClient().models.Outcome.create({
       roundId: thisRound.id,
       onchainId,
       title,
@@ -200,7 +208,7 @@ const useDatabase = () => {
   };
 
   const updateOutcomeWeight = async ({ marketId, roundId, weights }: any) => {
-    const market = await client.models.Market.get({
+    const market = await getClient().models.Market.get({
       id: marketId,
     });
 
@@ -223,7 +231,7 @@ const useDatabase = () => {
 
       console.log("updating..", outcome.id, weight);
 
-      await client.models.Outcome.update({
+      await getClient().models.Outcome.update({
         id: outcome.id,
         weight,
       });
@@ -231,7 +239,7 @@ const useDatabase = () => {
 
     const lastWeightUpdatedAt = Math.floor(new Date().valueOf() / 1000);
 
-    await client.models.Round.update({
+    await getClient().models.Round.update({
       id: thisRound.id,
       lastWeightUpdatedAt,
     });
@@ -245,7 +253,7 @@ const useDatabase = () => {
     amount,
     walletAddress,
   }: any) => {
-    const positions = await client.models.Position.list();
+    const positions = await getClient().models.Position.list();
 
     const maxPositionId = positions.data.reduce((result: number, item: any) => {
       if (item.onchainId > result) {
@@ -256,7 +264,7 @@ const useDatabase = () => {
 
     const onchainId = maxPositionId + 1;
 
-    await client.models.Position.create({
+    await getClient().models.Position.create({
       marketId,
       userId,
       roundId,
@@ -268,7 +276,7 @@ const useDatabase = () => {
   };
 
   const updatePosition = async (positionId: any) => {
-    await client.models.Position.update({
+    await getClient().models.Position.update({
       id: positionId,
       isClaimed: true,
     });
@@ -280,7 +288,7 @@ const useDatabase = () => {
     outcomeId,
     amount,
   }: any) => {
-    const market = await client.models.Market.get({
+    const market = await getClient().models.Market.get({
       id: marketId,
     });
 
@@ -299,12 +307,12 @@ const useDatabase = () => {
       (item: any) => item.onchainId === outcomeId
     );
 
-    await client.models.Outcome.update({
+    await getClient().models.Outcome.update({
       id: outcome.id,
       totalBetAmount: outcome.totalBetAmount + amount,
     });
 
-    await client.models.Market.update({
+    await getClient().models.Market.update({
       id: marketId,
       betPoolAmount: market.data.betPoolAmount + amount,
     });
@@ -324,7 +332,7 @@ const useDatabase = () => {
         formats: ["markdown", "html"],
       });
 
-      await client.models.Resource.update({
+      await getClient().models.Resource.update({
         id: resource.id,
         lastCrawledAt: Math.floor(new Date().valueOf() / 1000),
         crawledData: result.markdown,

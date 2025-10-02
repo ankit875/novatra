@@ -1,7 +1,5 @@
 import "@/styles/tailwind.css";
 import type { AppProps } from "next/app";
-import { Amplify } from "aws-amplify";
-import outputs from "@/amplify_outputs.json";
 import "@aws-amplify/ui-react/styles.css";
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -14,8 +12,10 @@ import AptosLayout from "@/components/Layouts/Aptos";
 import MainLayout from "@/components/Layouts/Main";
 import AuthProvider from "@/hooks/useAuth";
 import { SkeletonTheme } from 'react-loading-skeleton';
+import { configureAmplify } from "@/lib/amplify";
 
-Amplify.configure(outputs);
+// Configure Amplify as soon as possible
+configureAmplify();
 
 export default function App({ Component, pageProps }: AppProps) {
 

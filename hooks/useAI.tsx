@@ -1,8 +1,19 @@
 
+
 import type { Schema } from "../amplify/data/resource"
 import { generateClient } from "aws-amplify/api"
+import { configureAmplify } from "@/lib/amplify"
 
-const client = generateClient<Schema>()
+// Create client lazily to ensure Amplify is configured
+let client: ReturnType<typeof generateClient<Schema>> | null = null;
+
+const getClient = () => {
+  if (!client) {
+    configureAmplify();
+    client = generateClient<Schema>();
+  }
+  return client;
+};
 
 
 const useAI = () => {
@@ -11,7 +22,7 @@ const useAI = () => {
 
         const tools: any = getUserTools()
 
-        const result: any = await client.queries.Chat({
+        const result: any = await getClient().queries.Chat({
             messages: JSON.stringify(messages),
             tools: JSON.stringify(tools)
         })
@@ -20,7 +31,7 @@ const useAI = () => {
     }
 
     const parse = async (messages: any) => {
-        const result: any = await client.queries.WeightAssignment({
+        const result: any = await getClient().queries.WeightAssignment({
             messages: JSON.stringify(messages)
         })
 
@@ -94,7 +105,7 @@ const useAI = () => {
         //     period
         // })
 
-        const result: any = await client.queries.Chat2({
+        const result: any = await getClient().queries.Chat2({
             messages: JSON.stringify(messages),
             roundNumber: `${roundNumber}`,
             period: `${period}`
