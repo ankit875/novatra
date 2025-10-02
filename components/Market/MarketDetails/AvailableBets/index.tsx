@@ -16,7 +16,7 @@ enum SortBy {
 }
 
 const AvailableBets = ({ currentRound, marketData, onchainMarket, openBetModal }: any) => {
-    console.log('AvailableBets Rendered', marketData,'-----', onchainMarket, openBetModal)
+    console.log('AvailableBets Rendered', marketData,'-----', currentRound) // --- IGNORE ---
     const { getOutcomes } = useDatabase()
 
     const [outcomes, setOutcomes] = useState([])

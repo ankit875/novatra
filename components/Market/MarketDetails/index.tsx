@@ -13,7 +13,7 @@ import MyBetPositions from '@/components/Market/MarketDetails/MyBetPositions'
 import MarketActivity from '@/components/Market/MarketDetails/MarketActivity';
 
 // Fixed on this version
-const MARKET_ID = 1
+const MARKET_ID = 3
 
 const MarketDetails = () => {
 

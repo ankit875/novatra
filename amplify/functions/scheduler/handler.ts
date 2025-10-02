@@ -22,7 +22,7 @@ Amplify.configure(resourceConfig, libraryOptions);
 
 const client = generateClient<Schema>();
 
-const MARKET_ID = 1
+const MARKET_ID = 3
 
 const app = new FirecrawlApp({ apiKey: env.FIRECRAWL_API_KEY });
 
