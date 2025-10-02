@@ -11,7 +11,7 @@ const WalletBalance = () => {
   const address = account && account.address;
 
   useEffect(() => {
-    address && loadBalance(address);
+    address && loadBalance(address.toString());
   }, [address]);
 
   return (

@@ -56,7 +56,7 @@ const Faucet = ({
             close()
 
             setTimeout(() => {
-                address && loadBalance(address)
+                address && loadBalance(address.toString())
             }, 2000)
         } catch (error: any) {
             console.log(error)

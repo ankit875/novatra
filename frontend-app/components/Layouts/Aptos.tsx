@@ -7,7 +7,6 @@ import { AptosWalletAdapterProvider } from '@aptos-labs/wallet-adapter-react'
 import { BitgetWallet } from "@bitget-wallet/aptos-wallet-adapter";
 import { FewchaWallet } from "fewcha-plugin-wallet-adapter";
 import { PontemWallet } from "@pontem/wallet-adapter-plugin";
-import { MSafeWalletAdapter } from "@msafe/aptos-wallet-adapter";
 import { OKXWallet } from "@okwallet/aptos-wallet-adapter";
 import { TrustWallet } from "@trustwallet/aptos-wallet-adapter";
 import { PetraWallet } from 'petra-plugin-wallet-adapter';
@@ -16,7 +15,6 @@ const wallets: any = [
     new BitgetWallet(),
     new FewchaWallet(),
     new MartianWallet(),
-    new MSafeWalletAdapter(),
     new PontemWallet(),
     new TrustWallet(),
     new OKXWallet(),

@@ -95,7 +95,7 @@ const PlaceBetModal = ({ visible, close, bet, onchainMarketId = 1 }: any) => {
       close();
 
       setTimeout(() => {
-        address && loadBalance(address);
+        address && loadBalance(address.toString());
       }, 2000);
     } catch (e: any) {
       console.log(e);

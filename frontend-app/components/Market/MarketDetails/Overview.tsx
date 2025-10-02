@@ -87,14 +87,12 @@ const Overview = ({ market }: any) => {
                     
                     {market && countdown && (
                         <div className="text-right">
-                            <div className="flex items-center space-x-2 mb-2">
-                                <Clock size={16} className="text-orange-400" />
-                                <span className="text-sm font-medium text-gray-300">Closes in</span>
-                            </div>
-                            <div className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-                                {countdown}
-                            </div>
-                        </div>
+                                                <div className="flex items-center space-x-1 mb-1">
+                                                    <Clock size={12} className="text-blue-400" />
+                                                    <span className="text-lg font-bold text-white mb-1">Closes</span>
+                                                </div>
+                                                <div className="text-gray-300">{countdown}</div>
+                                            </div>
                     )}
                 </div>
 
