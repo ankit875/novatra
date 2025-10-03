@@ -33,16 +33,17 @@ novatra/
 ├─ contracts/
 │  ├─ Move.toml
 │  └─ sources/
-│     ├─ base_fungible_asset.move      # novatra_market::base_fungible_asset
-│     ├─ mock_usdc_fa.move             # novatra_market::mock_usdc_fa (local test token)
+|. 	  ├─ helpers
+│     		├─ base_fungible_asset.move      # novatra_market::base_fungible_asset
+│     		├─ mock_usdc_fa.move             # novatra_market::mock_usdc_fa (local test token)
 │     └─ generalized.move              # novatra_market::generalized (prediction market)
-├─ web/                                 # Next.js app (Pages Router)
+├─ src/                                 # Next.js app (Pages Router)
 │  ├─ pages/                            # pages router (index.tsx, api/*, etc.)
-│  ├─ components/
-│  ├─ lib/
-│  ├─ public/
-│  ├─ package.json
-│  └─ next.config.js
+├─ components/
+├─ lib/
+├─ public/
+├─ package.json
+└─ next.config.js
 └─ README.md
 ```
 
@@ -50,7 +51,7 @@ novatra/
 
 ---
 
-## 🚀 Quick Start (Frontend)
+##  Quick Start (Frontend)
 
 You can use `create-next-app` and **select Pages Router** when prompted.
 
@@ -69,7 +70,7 @@ cd web
 npm run dev
 # http://localhost:3000
 
-🔐 Authentication (AWS Amplify)
+ Authentication (AWS Amplify)
 	1.	Create an Amplify app & auth (Email/Google).
 	2.	Download amplify_outputs.json after connecting your GitHub repo to AWS Amplify.
 	3.	Place it in your web root (or wherever your app loads Amplify config).
@@ -78,7 +79,7 @@ Add any required API keys for your AI provider(s) to Amplify’s secret manager.
 
 ⸻
 
-🤖 AI Agent Notes
+ AI Agent Notes
 	•	Interactive Agent – system/developer prompts + retrieval context; helps users propose outcomes & inspect live data.
 	•	Automated Agent – scheduled runs to:
 	•	pull trusted market data,
@@ -108,11 +109,15 @@ aptos move publish \
   --profile default \
   --named-addresses novatra_market=0xYOUR_DEPLOYER_ADDR
 
+For detailed instructions on deploying to AWS cloud, refer to the [deployment section](https://docs.amplify.aws/nextjs/start/quickstart/nextjs-app-router-client-components/#deploy-a-fullstack-app-to-aws).
+
 Example (Aptos Testnet)
 
 Use your own deployment addresses; these are placeholders from earlier development.
 
-| Component | ID/Address |
-|-----------|------------|
-| Package ID | `0x896f7c28432dc223478a0ff3e9325d23f97e8bc261c1896eab85ee20c1f66183` |
-| Mock USDC | `0x74432d8fdde5be368d1fe3b717046e78bd712cc143000ccba136d2a16eb273be` |
+### Aptos Testnet
+
+Component Name | ID/Address
+--- | --- 
+Package ID |  0x896f7c28432dc223478a0ff3e9325d23f97e8bc261c1896eab85ee20c1f66183
+Mock USDC | 0x74432d8fdde5be368d1fe3b717046e78bd712cc143000ccba136d2a16eb273be
