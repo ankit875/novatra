@@ -7,10 +7,9 @@ const CoinMarketCapCard = () => {
             <div className="group cursor-pointer">
                 {/* Desktop Version */}
                 <div className="hidden md:block">
-                    <div className="relative bg-gradient-to-br from-orange-500/10 via-orange-400/5 to-transparent rounded-2xl p-6 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-500 backdrop-blur-sm hover:shadow-2xl hover:shadow-orange-500/10 overflow-hidden">
+                    <div className="relative bg-gray-900 rounded-2xl p-6 border border-gray-700 hover:border-gray-600 transition-all duration-500 backdrop-blur-sm hover:shadow-2xl overflow-hidden">
                         {/* Background Pattern */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-orange-400/10 to-transparent rounded-full blur-xl"></div>
+                        <div className="absolute inset-0 bg-black/50 opacity-50"></div>
                         
                         <div className="relative flex items-center space-x-6">
                             {/* Logo Section */}
@@ -64,9 +63,9 @@ const CoinMarketCapCard = () => {
 
                 {/* Mobile Version */}
                 <div className="block md:hidden">
-                    <div className="relative bg-gradient-to-br from-orange-500/10 via-orange-400/5 to-transparent rounded-xl p-4 border border-orange-400/20 hover:border-orange-400/40 transition-all duration-500 backdrop-blur-sm overflow-hidden">
+                    <div className="relative bg-gray-900 rounded-xl p-4 border border-gray-700 hover:border-gray-600 transition-all duration-500 backdrop-blur-sm overflow-hidden">
                         {/* Background Pattern */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
+                        <div className="absolute inset-0 bg-black/50 opacity-50"></div>
                         
                         <div className="relative flex items-start space-x-4">
                             {/* Logo Section */}

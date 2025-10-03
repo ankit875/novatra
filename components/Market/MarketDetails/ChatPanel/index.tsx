@@ -169,7 +169,6 @@ const ChatPanel = ({
 
         scrollToBottom();
 
-        // Observe changes to the chat container's content (e.g., new messages)
         const observer = new MutationObserver(scrollToBottom);
         if (chatContainerRef.current) {
             observer.observe(chatContainerRef.current, { childList: true, subtree: true });
@@ -273,7 +272,7 @@ const ChatPanel = ({
                             className="block w-full p-2 px-4 rounded-l-lg text-base bg-[#141F32] border border-gray/30 border-r-0 placeholder-gray text-white focus:outline-none"
                         />
                         <div className="cursor-default flex border border-l-0 border-gray/30 bg-[#141F32] px-2 rounded-r-lg h-full">
-                            <button onClick={onSend} disabled={loading} className={`m-auto flex flex-row bg-secondary/10 rounded-lg text-secondary   py-0.5 px-4  font-normal border border-transparent `}>
+                            <button onClick={onSend} disabled={loading} className={`m-auto flex flex-row bg-secondary/10 rounded-lg text-white   py-0.5 px-4  font-normal border border-transparent `}>
                                 <span className='my-auto font-semibold'>Send</span>{` `}<Send size={20} className='my-auto ml-2' />
                             </button>
                         </div>

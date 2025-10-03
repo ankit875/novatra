@@ -22,12 +22,10 @@ const MarketCard = ({
     <Link href="/markets/coinmarketcap">
       <div className="group cursor-pointer w-full h-full">
         <div className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-xl p-4 border border-primary/20 hover:border-primary/40 transition-all duration-500 backdrop-blur-sm hover:shadow-xl hover:shadow-primary/10 overflow-hidden h-full min-h-[140px]">
-          {/* Background Pattern */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
           <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-primary/10 to-transparent rounded-full blur-xl"></div>
           
           <div className="relative flex items-start space-x-3">
-            {/* Logo Section */}
             <div className="flex-shrink-0 relative">
               <div className="w-12 h-12 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-primary/30 group-hover:scale-105 transition-transform duration-300">
                 <img 
@@ -59,9 +57,7 @@ const MarketCard = ({
                 />
               </div>
               
-              {/* Stats Row */}
               <div className="flex items-center justify-between text-sm">
-                {/* Time left */}
                 <div className="flex items-center space-x-1">
                   <Clock size={14} className="text-secondary" />
                   <span className="text-gray-300 font-medium">
@@ -69,7 +65,6 @@ const MarketCard = ({
                   </span>
                 </div>
 
-                {/* Volume */}
                 <div className="flex items-center space-x-1">
                   <DollarSign size={14} className="text-green-400" />
                   <img 

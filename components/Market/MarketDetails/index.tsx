@@ -19,6 +19,8 @@ const MarketDetails = () => {
 
     const [modal, setModal] = useState(false)
     const [activeTab, setActiveTab] = useState(0)
+    const [isTransitioning, setIsTransitioning] = useState(false)
+    const [contentKey, setContentKey] = useState(0)
 
     const { getMarketInfo } = useAptos()
     const { getMarketData } = useDatabase()
@@ -68,37 +70,61 @@ const MarketDetails = () => {
         }
     ]
 
+    const handleTabChange = (tabId: number) => {
+        if (tabId === activeTab) return
+        
+        setIsTransitioning(true)
+        setTimeout(() => {
+            setActiveTab(tabId)
+            setContentKey(prev => prev + 1)
+            setIsTransitioning(false)
+        }, 150)
+    }
+
     const renderActiveComponent = () => {
-        switch(activeTab) {
-            case 0:
-                return (
-                    <ChatPanel
-                        currentRound={currentRound}
-                        marketData={marketData}
-                        onchainMarket={onchainMarket}
-                        openBetModal={openBetModal}
-                    />
-                )
-            case 1:
-                return (
-                    <AvailableBets
-                        currentRound={currentRound}
-                        marketData={marketData}
-                        onchainMarket={onchainMarket}
-                        openBetModal={openBetModal} 
-                    />
-                )
-            case 2:
-                return (
-                    <MyBetPositions
-                        marketData={marketData}
-                        currentRound={currentRound}
-                        onchainMarket={onchainMarket}
-                    />
-                )
-            default:
-                return null
-        }
+        const baseClasses = "transform transition-all duration-500 ease-out"
+        const animationClasses = isTransitioning 
+            ? "opacity-0 translate-y-4 scale-95" 
+            : "opacity-100 translate-y-0 scale-100"
+        
+        const content = (() => {
+            switch(activeTab) {
+                case 0:
+                    return (
+                        <ChatPanel
+                            currentRound={currentRound}
+                            marketData={marketData}
+                            onchainMarket={onchainMarket}
+                            openBetModal={openBetModal}
+                        />
+                    )
+                case 1:
+                    return (
+                        <AvailableBets
+                            currentRound={currentRound}
+                            marketData={marketData}
+                            onchainMarket={onchainMarket}
+                            openBetModal={openBetModal} 
+                        />
+                    )
+                case 2:
+                    return (
+                        <MyBetPositions
+                            marketData={marketData}
+                            currentRound={currentRound}
+                            onchainMarket={onchainMarket}
+                        />
+                    )
+                default:
+                    return null
+            }
+        })()
+
+        return (
+            <div key={contentKey} className={`${baseClasses} ${animationClasses}`}>
+                {content}
+            </div>
+        )
     }
 
     return (
@@ -115,11 +141,9 @@ const MarketDetails = () => {
                 bet={bet}
             />
 
-            {/* Modern DeFi Dashboard Layout */}
             <div className="max-w-7xl mx-auto p-4 space-y-6">
                 
-                {/* Alert Banner */}
-                <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 rounded-xl p-4 border border-blue-400/20 backdrop-blur-sm">
+                <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 rounded-xl p-4 border border-blue-400/20 backdrop-blur-sm animate-float">
                     <div className="flex items-center space-x-3">
                         <AlertCircle size={18} className="text-blue-400 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
@@ -136,19 +160,15 @@ const MarketDetails = () => {
                     </div>
                 </div>
 
-                {/* Main Dashboard Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
-                    {/* Left Panel - Market Overview & Navigation */}
-                    <div className="lg:col-span-2 space-y-6">
+                    <div className="lg:col-span-2 space-y-6 animate-fade-in-up">
                         
-                        {/* Market Overview */}
-                        <div className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 border border-white/10">
+                        <div className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 border border-white/10 hover:border-white/20 transition-all duration-500 hover:shadow-lg hover:shadow-blue-500/20 animate-glow">
                             <Overview market={{ ...onchainMarket }} />
                         </div>
 
-                        {/* Compact Navigation */}
-                        <div className="bg-gradient-to-r from-white/5 to-white/[0.02] rounded-xl p-3 border border-white/10">
+                        <div className="bg-gradient-to-r from-white/5 to-white/[0.02] rounded-xl p-3 border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-md">
                             <div className="grid grid-cols-3 gap-2">
                                 {navItems.map((item) => {
                                     const IconComponent = item.icon
@@ -157,54 +177,65 @@ const MarketDetails = () => {
                                     return (
                                         <button
                                             key={item.id}
-                                            onClick={() => setActiveTab(item.id)}
-                                            className={`relative group transition-all duration-200 ${
+                                            onClick={() => handleTabChange(item.id)}
+                                            className={`relative group transition-all duration-300 transform hover:z-10 overflow-hidden ${
                                                 isActive 
-                                                    ? 'bg-gradient-to-r ' + item.color + ' shadow-md' 
-                                                    : 'hover:bg-white/5'
-                                            } rounded-lg p-3`}
+                                                    ? `bg-gradient-to-r ${item.color} shadow-lg shadow-${item.color.split('-')[1]}-500/20 scale-105 border-2 border-white/20` 
+                                                    : 'hover:bg-white/10 hover:scale-102 border-2 border-transparent'
+                                            } rounded-lg p-3 hover:shadow-md transition-bounce`}
                                         >
-                                            <div className="flex flex-col items-center space-y-2">
+                                            <div className="absolute inset-0 bg-white/20 rounded-lg transform scale-0 group-hover:scale-100 transition-transform duration-500 ease-out"></div>
+                                            
+                                            {isActive && (
+                                                <div className={`absolute -top-1 -left-1 -right-1 -bottom-1 bg-gradient-to-r ${item.color} rounded-lg opacity-30 animate-pulse`}></div>
+                                            )}
+                                            
+                                            <div className="relative z-10 flex flex-col items-center space-y-2">
                                                 <div className={`relative ${
-                                                    isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'
-                                                } transition-colors`}>
-                                                    <IconComponent size={20} />
+                                                    isActive ? 'text-white drop-shadow-sm' : 'text-gray-400 group-hover:text-white'
+                                                } transition-all duration-300`}>
+                                                    <IconComponent size={20} className={isActive ? 'animate-pulse' : ''} />
                                                     {item.badge && (
-                                                        <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold text-[10px]">
+                                                        <span className={`absolute -top-1 -right-1 w-4 h-4 ${
+                                                            isActive ? 'bg-white text-gray-800' : 'bg-red-500 text-white'
+                                                        } text-xs rounded-full flex items-center justify-center font-bold text-[10px] transition-all duration-300`}>
                                                             {item.badge}
                                                         </span>
                                                     )}
                                                 </div>
                                                 <div className={`text-xs font-medium ${
-                                                    isActive ? 'text-white' : 'text-gray-400 group-hover:text-white'
-                                                } transition-colors text-center`}>
+                                                    isActive ? 'text-white font-bold drop-shadow-sm' : 'text-gray-400 group-hover:text-white'
+                                                } transition-all duration-300 text-center`}>
                                                     {item.label}
                                                 </div>
                                             </div>
+
+                                            {isActive && (
+                                                <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-white rounded-full shadow-md`}></div>
+                                            )}
                                         </button>
                                     )
                                 })}
                             </div>
                         </div>
 
-                        {/* Active Component Display */}
-                        <div className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl border border-white/10 overflow-hidden">
-                            <div className="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-green-500"></div>
+                        <div className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl border border-white/10 overflow-hidden hover:border-white/20 transition-all duration-300 hover:shadow-lg">
+                            <div className="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 animate-shimmer"></div>
                             <div className="p-6">
-                                {renderActiveComponent()}
+                                <div className="transition-all duration-300 ease-in-out">
+                                    {renderActiveComponent()}
+                                </div>
                             </div>
                         </div>
 
                     </div>
 
-                    {/* Right Panel - Compact Analytics */}
-                    <div className="lg:col-span-1">
+                    <div className="lg:col-span-1 animate-fade-in-right">
                         <div className="space-y-4">
                             
-                            {/* Rankings Card */}
-                            <div className="bg-gradient-to-br from-white/5 to-transparent rounded-xl p-4 border border-white/10">
+                            <div className="bg-gradient-to-br from-white/5 to-transparent rounded-xl p-4 border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-102 hover:shadow-lg animate-fade-in-up" style={{animationDelay: '0.1s'}}>
                                 <div className="flex items-center space-x-2 mb-3">
-                                    <TrendingUp size={16} className="text-green-400" />
+                                    <TrendingUp size={16} className="text-green-400 animate-pulse" />
                                     <h3 className="text-sm font-bold text-white">Rankings</h3>
                                 </div>
                                 <Ranking
@@ -213,15 +244,9 @@ const MarketDetails = () => {
                                 />
                             </div>
 
-                            {/* Activity Feed */}
-                            <div className="bg-gradient-to-br from-white/5 to-transparent rounded-xl p-4 border border-white/10">
-                                <div className="flex items-center space-x-2 mb-3">
-                                    <BarChart size={16} className="text-purple-400" />
-                                    <h3 className="text-sm font-bold text-white">Activity</h3>
-                                </div>
+                           
                                 <MarketActivity />
-                            </div>
-
+                        
                         </div>
                     </div>
 

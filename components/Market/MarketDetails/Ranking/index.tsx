@@ -44,7 +44,6 @@ const Ranking = ({ currentRound, marketData }: any) => {
   };
   return (
     <div className="space-y-4">
-      {/* Top Outcomes Section */}
       <div className="space-y-3">
         <div className="flex items-center space-x-2 mb-4">
           <Award size={16} className="text-yellow-400" />
@@ -93,7 +92,6 @@ const Ranking = ({ currentRound, marketData }: any) => {
         )}
       </div>
 
-      {/* Wallet Balance Section */}
       <WalletBalance />
     </div>
   );

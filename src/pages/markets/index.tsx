@@ -10,7 +10,7 @@ const MarketsPage = () => {
             <Head>
                 <title>Novatra | Prediction Market</title>
             </Head>
-            <section className="relative py-12 lg:py-24 min-h-[90vh]" style={{ backgroundColor: 'rgb(9 69 162)' }}>
+            <section className="relative py-12 lg:py-24 min-h-[90vh]" style={{ backgroundColor: '#000000' }}>
                 <div className="container pt-6 lg:pt-4  mb-[40px]">
                     <MarketList />
                 </div>

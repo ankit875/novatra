@@ -3,7 +3,6 @@ import { PropsWithChildren, useEffect, useState } from 'react';
 // import 'aos/dist/aos.css';
 
 import Footer from "./Footer"
-import Sidebar from "./Sidebar"
 import { Menu } from 'react-feather';
 
 import dynamic from 'next/dynamic'
@@ -14,7 +13,6 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 
     const [showLoader, setShowLoader] = useState(true);
     const [showTopButton, setShowTopButton] = useState(false);
-    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const goToTop = () => {
         document.body.scrollTop = 0;
@@ -53,9 +51,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
 
     return (
         <div className='App'>
-            {/* BEGIN MAIN CONTAINER */}
             <div>
-                {/* screen loader  */}
                 {showLoader && (
                     <div className="screen_loader fixed inset-0 z-[60] grid place-content-center bg-[#fafafa] dark:bg-[#060818]">
                         <svg
@@ -114,33 +110,16 @@ const MainLayout = ({ children }: PropsWithChildren) => {
                     </div>
                 )}
 
-                <div className="flex min-h-screen font-mulish text-base font-normal text-white antialiased relative" style={{ backgroundColor: 'rgb(9 69 162)' }}>
-                    {/* Sidebar */}
-                    <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-                    
+                <div className="flex min-h-screen font-mulish text-base font-normal text-white antialiased relative" style={{ backgroundColor: '#000000' }}>                    
                     {/* Main Content Area */}
-                    <div className="flex-1 lg:ml-64 flex flex-col min-h-screen">
-                        {/* Top Header (simplified for profile/search) */}
-                        <div className="bg-gray-800 border-b border-gray-700 px-6 py-4 flex justify-between items-center shadow-lg z-30">
-                            {/* Mobile Menu Button */}
-                            <button
-                                onClick={() => setSidebarOpen(true)}
-                                className="lg:hidden p-2 text-white hover:text-secondary transition-colors bg-gray-700 rounded-lg"
-                            >
-                                <Menu size={24} />
-                            </button>
-                            
-                            {/* Spacer for desktop (no mobile menu button) */}
-                            <div className="hidden lg:block"></div>
-                            
-                            {/* Header with Sign In - Always on the right */}
-                            <div className="ml-auto">
-                                <Header className="bg-transparent" />
-                            </div>
+                    <div className="flex-1 flex flex-col min-h-screen">
+                        {/* Top Header */}
+                        <div className="bg-gray-800 shadow-lg z-30">
+                            <Header className="bg-transparent" />
                         </div>
                         
                         {/* Content */}
-                        <div className="flex-grow overflow-x-hidden" style={{ backgroundColor: 'rgb(9 69 162)' }}>
+                        <div className="flex-grow overflow-x-hidden" style={{ backgroundColor: '#000000' }}>
                             {children}
                         </div>
                         

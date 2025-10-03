@@ -32,7 +32,6 @@ const Footer = () => {
                         </div> 
                     </div>
                     
-                    {/* Additional Footer Content */}
                     <div className="mt-4 pt-4 border-t border-gray-700">
                         <div className="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
                             <div className="text-xs text-gray-400">

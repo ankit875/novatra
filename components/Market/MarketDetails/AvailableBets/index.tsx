@@ -158,7 +158,6 @@ const AvailableBets = ({ currentRound, marketData, onchainMarket, openBetModal }
             >
                 {infoModal && (
                     <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl overflow-hidden mt-4">
-                        {/* Header */}
                         <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 p-6 border-b border-white/10">
                             <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent"></div>
                             <div className="relative">
@@ -217,7 +216,6 @@ const AvailableBets = ({ currentRound, marketData, onchainMarket, openBetModal }
             </BaseModal>
 
             <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl overflow-hidden my-4">
-                {/* Round Navigation Header */}
                 <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 p-6 border-b border-white/10">
                     <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent"></div>
                     <div className="relative flex items-center justify-between">
@@ -254,7 +252,6 @@ const AvailableBets = ({ currentRound, marketData, onchainMarket, openBetModal }
                     </div>
                 </div>
 
-                {/* Filters and Status */}
                 <div className="p-6 border-b border-white/10">
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-4">
@@ -279,7 +276,6 @@ const AvailableBets = ({ currentRound, marketData, onchainMarket, openBetModal }
                         </div>
                     </div>
                     
-                    {/* Status Indicator */}
                     <div className="text-center">
                         {currentRound === current && (
                             <div className="inline-flex items-center space-x-2 bg-green-500/10 border border-green-400/20 rounded-full px-4 py-2">
@@ -388,11 +384,9 @@ const OutcomeCard = ({ index, item, current, marketData, openInfoModal, openBetM
             }} 
             className="group relative bg-gradient-to-br from-gray-800/40 via-gray-900/60 to-black/80 rounded-xl p-5 border border-gray-600/30 hover:border-blue-500/50 transition-all duration-300 cursor-pointer hover:transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/10"
         >
-            {/* Background gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             
             <div className="relative space-y-4">
-                {/* Header with icon and title */}
                 <div className="flex items-start space-x-3">
                     <Image 
                         className="h-10 w-10 rounded-full flex-shrink-0" 
@@ -408,12 +402,10 @@ const OutcomeCard = ({ index, item, current, marketData, openInfoModal, openBetM
                     </div>
                 </div>
 
-                {/* Resolution date */}
                 <div className="text-xs text-gray-400">
                     <span className="font-medium">Resolves:</span> {new Date(Number(item.resolutionDate) * 1000).toLocaleDateString()}
                 </div>
 
-                {/* Stats */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="bg-gray-700/30 rounded-lg p-3">
                         <div className="flex items-center space-x-1">
@@ -434,7 +426,6 @@ const OutcomeCard = ({ index, item, current, marketData, openInfoModal, openBetM
                     </div>
                 </div>
 
-                {/* Status indicator for past outcomes */}
                 {isPast && (
                     <div className="flex justify-center">
                         {item.revealedTimestamp && (

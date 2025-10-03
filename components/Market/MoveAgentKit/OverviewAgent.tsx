@@ -37,7 +37,6 @@ const OverviewMoveAgentKit = ({ market }: any) => {
 
     return (
         <div className="space-y-4">
-            {/* Compact Market Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-xl flex items-center justify-center border border-blue-400/30">
@@ -65,7 +64,6 @@ const OverviewMoveAgentKit = ({ market }: any) => {
             </p>
 
 
-            {/* Compact Period Info */}
             {market && countdown && (
                 <div className="bg-blue-500/10 rounded-lg p-3 border border-blue-400/20">
                     <div className="flex justify-between items-center">

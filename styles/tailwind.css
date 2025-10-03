@@ -380,7 +380,7 @@ html, body {
 /* Swiper navigation buttons styling */
 .highlighted-swiper .swiper-button-next,
 .highlighted-swiper .swiper-button-prev {
-    color: #7C3AED !important;
+    color: #4a5565 !important;
     background: rgba(124, 58, 237, 0.1) !important;
     border-radius: 50% !important;
     width: 36px !important;
@@ -437,7 +437,7 @@ html, body {
 }
 
 .highlighted-swiper .swiper-scrollbar-drag {
-    background: linear-gradient(90deg, #7C3AED, #A855F7) !important;
+    background: linear-gradient(90deg, #4a5565, #2d3748) !important;
     border-radius: 10px !important;
     cursor: grab !important;
 }

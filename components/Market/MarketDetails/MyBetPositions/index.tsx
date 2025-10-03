@@ -146,7 +146,6 @@ const MyBetPositions = ({ marketData, onchainMarket, currentRound }: any) => {
           >
             {modal && (
               <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl overflow-hidden mt-4">
-                {/* Header */}
                 <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 p-6 border-b border-white/10">
                   <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent"></div>
                   <div className="relative">
@@ -200,7 +199,6 @@ const MyBetPositions = ({ marketData, onchainMarket, currentRound }: any) => {
                   </div>
                 </div>
 
-                {/* Action Section */}
                 {modal?.outcome?.revealedTimestamp && (
                   <div className="p-6 space-y-4">
                     <div className="space-y-3">
@@ -271,7 +269,6 @@ const MyBetPositions = ({ marketData, onchainMarket, currentRound }: any) => {
           </BaseModal>
 
           <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 rounded-2xl overflow-hidden my-4">
-            {/* Header Section */}
             <div className="relative bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-blue-500/10 p-6 border-b border-white/10">
               <div className="absolute inset-0 bg-gradient-to-r from-white/[0.08] to-transparent"></div>
               <div className="relative flex items-center justify-center">
@@ -279,7 +276,6 @@ const MyBetPositions = ({ marketData, onchainMarket, currentRound }: any) => {
               </div>
             </div>
 
-            {/* Filters and Stats */}
             <div className="p-6 border-b border-white/10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">

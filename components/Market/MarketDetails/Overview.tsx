@@ -38,7 +38,6 @@ const Overview = ({ market }: any) => {
         
     return (
         <div className="space-y-6">
-            {/* Market Header */}
             <div className="flex items-start justify-between">
                 <div className="space-y-3">
                     <div className="flex items-center space-x-3">
@@ -72,7 +71,6 @@ const Overview = ({ market }: any) => {
             </div>
 
 
-            {/* Prediction Period */}
             <div className="bg-gradient-to-r from-white/5 to-white/[0.02] rounded-xl p-6 border border-white/10">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">

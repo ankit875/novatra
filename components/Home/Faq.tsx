@@ -43,25 +43,59 @@ const Faq = () => {
 
     return (
         <section className="py-14 pb-8 lg:pt-[100px]">
+            <style jsx>{`
+                @keyframes gradient-x {
+                    0%, 100% {
+                        background-position: 0% 50%;
+                    }
+                    50% {
+                        background-position: 100% 50%;
+                    }
+                }
+                .animate-gradient-x {
+                    animation: gradient-x 3s ease infinite;
+                }
+                .animate-float {
+                    animation: float 6s ease-in-out infinite;
+                }
+                @keyframes float {
+                    0%, 100% {
+                        transform: translateY(0px);
+                    }
+                    50% {
+                        transform: translateY(-10px);
+                    }
+                }
+            `}</style>
             <div className="container">
                 <div className="heading text-center">
-                    <div className={` mb-3 text-lg font-extrabold text-secondary sm:mb-4`}>FAQs</div>
-                    <h4>
-                        Frequently Asked <span className={'!text-secondary'}>Questions</span>
+                    <div className="flex items-center justify-center mb-4">
+                        <span className="inline-flex items-center bg-gradient-to-r from-secondary/20 to-secondary/10 px-4 py-2 rounded-full text-white font-semibold text-sm tracking-wide backdrop-blur-sm border border-secondary/20 animate-float">
+                            ❓ FAQS
+                        </span>
+                    </div>
+                    <h4 className="text-4xl lg:text-5xl font-black mb-6">
+                        <span className="bg-gradient-to-r from-white via-white to-gray-400 bg-clip-text text-transparent">
+                            Frequently Asked
+                        </span>
+                        <br />
+                        <span className="bg-gradient-to-r from-secondary via-primary to-secondary bg-[length:200%_200%] bg-clip-text text-transparent animate-gradient-x">
+                            Questions
+                        </span>
                     </h4>
                 </div>
                 <div className="mx-2 sm:mx-auto lg:w-[730px]">
                     {DATA.map((faq: any, i: number) => {
                         return (
-                            <div key={i} className="mt-6 border-0 border-b-2 border-gray/20 bg-transparent">
+                            <div key={i} className="mt-6 border-0 border-b-2 border-gray-700 bg-transparent">
                                 <button
                                     type="button"
-                                    className="relative !flex w-full items-center justify-between gap-2 py-2.5 text-lg font-bold text-black ltr:text-left rtl:text-right dark:text-white"
+                                    className="relative !flex w-full items-center justify-between gap-2 py-2.5 text-lg font-bold text-white ltr:text-left rtl:text-right"
                                     onClick={() => setActive(active === i ? null : i)}
                                 >
                                     <div>{faq.question}</div>
                                     <div
-                                        className={`grid h-6 w-6 flex-shrink-0 place-content-center rounded-full border-2 border-gray text-gray transition ${active === i ? '!border-black !text-black dark:!border-white dark:!text-white' : ''
+                                        className={`grid h-6 w-6 flex-shrink-0 place-content-center rounded-full border-2 border-gray-400 text-gray-400 transition ${active === i ? '!border-white !text-white' : ''
                                             }`}
                                     >
                                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,7 +113,7 @@ const Faq = () => {
                                 </button>
                                 <AnimateHeight duration={600} height={active === i ? 'auto' : 0}>
                                     <div className="lg:w-4/5">
-                                        <p className="px-0 pb-5 pt-0 text-sm font-bold leading-[18px] text-gray">{faq.answer}</p>
+                                        <p className="px-0 pb-5 pt-0 text-sm font-bold leading-[18px] text-gray-300">{faq.answer}</p>
                                     </div>
                                 </AnimateHeight>
                             </div>

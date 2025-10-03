@@ -59,7 +59,6 @@ const Sidebar = ({ isOpen = true, onClose }: SidebarProps) => {
 
     return (
         <>
-            {/* Mobile Overlay */}
             {isOpen && (
                 <div 
                     className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
@@ -67,22 +66,10 @@ const Sidebar = ({ isOpen = true, onClose }: SidebarProps) => {
                 />
             )}
             
-            {/* Sidebar */}
-            <div className={`fixed left-0 top-0 h-full w-64 bg-gray-900 border-r border-gray-700 flex flex-col z-40 transform transition-transform duration-300 lg:translate-x-0 ${
+            <div className={`fixed left-0 top-0 h-full w-64 bg-gray-900 flex flex-col z-40 transform transition-transform duration-300 lg:translate-x-0 ${
                 isOpen ? 'translate-x-0' : '-translate-x-full'
             }`}>
-                {/* Logo Section */}
-                <div className="p-6 border-b border-gray-700 bg-gray-800">
-                    <Link href="/" className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-gradient-to-r from-secondary to-primary rounded-lg flex items-center justify-center">
-                            <span className="text-white font-bold text-lg">N</span>
-                        </div>
-                        <span className="text-xl font-bold text-white">Novatra</span>
-                    </Link>
-                </div>
-
-                {/* Navigation */}
-                <nav className="flex-1 px-4 py-6 space-y-2 bg-gray-900">
+                <nav className="flex-1 px-4 py-6 space-y-2 bg-gray-900 pt-8">
                     {navigationItems.map((item) => {
                         const Icon = item.icon;
                         return (
