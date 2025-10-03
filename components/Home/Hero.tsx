@@ -81,7 +81,7 @@ const Hero = () => {
       <section>
          <div className="relative mb-8 flex justify-center animate-fade-in-up">
           <video 
-            className="w-72 h-72 object-cover animate-float hover:scale-105 transition-all duration-500 rounded-xl shadow-2xl shadow-primary/20" 
+            className="w-72 h-72 object-cover animate-float hover:scale-105 transition-all duration-500 rounded-full shadow-2xl shadow-primary/20" 
             autoPlay 
             muted 
             loop
@@ -91,7 +91,7 @@ const Hero = () => {
             Your browser does not support the video tag.
         </video>
         {/* Optional overlay for better visual integration */}
-        <div className="absolute inset-0 animate-shimmer rounded-xl"></div>
+        <div className="absolute inset-0 animate-shimmer rounded-full"></div>
       </div>
 
         <div className="py-2 lg:py-32">
