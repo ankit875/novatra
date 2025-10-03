@@ -349,26 +349,32 @@ body {
     @apply flex min-h-screen bg-black;
 }
 
-/* Swiper fixes to prevent infinite width expansion */
+/* Prevent horizontal scroll on the main page */
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Simplified Swiper styles for better alignment */
 .swiper-container, .mySwiper {
     width: 100% !important;
-    overflow: visible !important;
+    overflow: hidden !important;
 }
 
 .highlighted-swiper {
-    overflow: visible !important;
-    padding: 0 40px !important; /* Space for navigation buttons */
+    padding: 0 20px !important;
 }
 
 .swiper-slide {
-    width: auto !important;
-    max-width: 280px !important;
-    min-width: 200px !important;
-    flex-shrink: 0;
+    height: auto !important;
 }
 
 .swiper-wrapper {
-    width: auto !important;
+    display: flex !important;
 }
 
 /* Swiper navigation buttons styling */

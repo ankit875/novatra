@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 
 // import required modules
-import { Autoplay, Navigation, Scrollbar } from "swiper/modules";
+import { Navigation, Scrollbar } from "swiper/modules";
 import BaseModal from "@/modals/Base";
 import useDatabase from "@/hooks/useDatabase";
 import Skeleton from "react-loading-skeleton";
@@ -123,8 +123,9 @@ const Highlighted = () => {
   }, [getAllOutcomes]);
 
   return (
-    <div className="px-6 sm:px-1 mt-16">
-      <div className="heading mb-8 text-center">
+    <div className="mt-16 px-6">
+      <div className="container mx-auto">
+        <div className="heading mb-8 text-center">
         <div className="flex items-center justify-center mb-4">
           <span className="inline-flex items-center bg-gradient-to-r from-primary/20 to-primary/10 px-4 py-2 rounded-full text-primary font-semibold text-sm tracking-wide backdrop-blur-sm border border-primary/20">
              HIGHLIGHTED PREDICTIONS
@@ -137,59 +138,39 @@ const Highlighted = () => {
         )}
       </div>
 
-      {/* Enhanced Swiper with normal scrolling */}
-      <Swiper
-        spaceBetween={20}
-        centeredSlides={false}
-        slidesPerView="auto"
-        autoplay={outcomes.length <= 5 ? {
-          delay: 4000,
-          disableOnInteraction: false,
-        } : false} // Disable autoplay if too many items
-        loop={false}
-        navigation={{
-          enabled: outcomes.length > 5
-        }}
-        scrollbar={{
-          hide: false,
-          draggable: true,
-          dragSize: 'auto'
-        }}
-        modules={[Autoplay, Navigation, Scrollbar]}
-        className="mySwiper highlighted-swiper"
-        breakpoints={{
-          320: {
-            slidesPerView: 1.2,
-            spaceBetween: 16,
-          },
-          480: {
-            slidesPerView: 1.5,
-            spaceBetween: 16,
-          },
-          640: {
-            slidesPerView: 2.2,
-            spaceBetween: 18,
-          },
-          768: {
-            slidesPerView: 3.2,
-            spaceBetween: 20,
-          },
-          1024: {
-            slidesPerView: 4.2,
-            spaceBetween: 22,
-          },
-          1280: {
-            slidesPerView: 5,
-            spaceBetween: 24,
-          },
-          1536: {
-            slidesPerView: 6,
-            spaceBetween: 26,
-          },
-        }}
+        {/* Simple Swiper with responsive display */}
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={1}
+          navigation={{
+            enabled: outcomes.length > 3
+          }}
+          scrollbar={{
+            hide: false,
+            draggable: true
+          }}
+          modules={[Navigation, Scrollbar]}
+          className="mySwiper highlighted-swiper"
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            },
+            1280: {
+              slidesPerView: 5,
+              spaceBetween: 20,
+            },
+          }}
         style={{
-          paddingBottom: '20px', // Space for scrollbar
-          overflow: 'visible'
+          paddingBottom: '20px' // Space for scrollbar
         }}
       >
         {outcomes.length === 0 && (
@@ -254,7 +235,8 @@ const Highlighted = () => {
             </Link>
           </SwiperSlide>
         )}
-      </Swiper>
+              </Swiper>
+      </div>
     </div>
   );
 };
