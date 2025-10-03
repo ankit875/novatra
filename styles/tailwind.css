@@ -352,7 +352,12 @@ body {
 /* Swiper fixes to prevent infinite width expansion */
 .swiper-container, .mySwiper {
     width: 100% !important;
-    overflow: hidden;
+    overflow: visible !important;
+}
+
+.highlighted-swiper {
+    overflow: visible !important;
+    padding: 0 40px !important; /* Space for navigation buttons */
 }
 
 .swiper-slide {
@@ -364,6 +369,84 @@ body {
 
 .swiper-wrapper {
     width: auto !important;
+}
+
+/* Swiper navigation buttons styling */
+.highlighted-swiper .swiper-button-next,
+.highlighted-swiper .swiper-button-prev {
+    color: #7C3AED !important;
+    background: rgba(124, 58, 237, 0.1) !important;
+    border-radius: 50% !important;
+    width: 36px !important;
+    height: 36px !important;
+    margin-top: -18px !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(124, 58, 237, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.highlighted-swiper .swiper-button-next:hover,
+.highlighted-swiper .swiper-button-prev:hover {
+    background: rgba(124, 58, 237, 0.2) !important;
+    border-color: rgba(124, 58, 237, 0.4) !important;
+    transform: scale(1.1) !important;
+}
+
+.highlighted-swiper .swiper-button-next::after,
+.highlighted-swiper .swiper-button-prev::after {
+    font-size: 14px !important;
+    font-weight: bold !important;
+}
+
+/* Hide navigation buttons on mobile, show scrollbar instead */
+@media (max-width: 768px) {
+    .highlighted-swiper .swiper-button-next,
+    .highlighted-swiper .swiper-button-prev {
+        display: none !important;
+    }
+    
+    .highlighted-swiper {
+        padding: 0 20px !important;
+    }
+    
+    .highlighted-swiper .swiper-scrollbar {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
+/* Show navigation buttons on larger screens */
+@media (min-width: 769px) {
+    .highlighted-swiper .swiper-button-next,
+    .highlighted-swiper .swiper-button-prev {
+        display: flex !important;
+    }
+}
+
+/* Swiper scrollbar styling */
+.highlighted-swiper .swiper-scrollbar {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    height: 4px !important;
+}
+
+.highlighted-swiper .swiper-scrollbar-drag {
+    background: linear-gradient(90deg, #7C3AED, #A855F7) !important;
+    border-radius: 10px !important;
+    cursor: grab !important;
+}
+
+.highlighted-swiper .swiper-scrollbar-drag:active {
+    cursor: grabbing !important;
+}
+
+/* Normal swiper cursor */
+.highlighted-swiper .swiper-wrapper {
+    cursor: grab !important;
+}
+
+.highlighted-swiper .swiper-wrapper:active {
+    cursor: grabbing !important;
 }
 
 /* Market card width constraints */

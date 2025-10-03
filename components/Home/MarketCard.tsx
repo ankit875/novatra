@@ -20,8 +20,8 @@ const MarketCard = ({
 }: IMarketCard) => {
   return (
     <Link href="/markets/coinmarketcap">
-      <div className="group cursor-pointer">
-        <div className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-xl p-4 border border-primary/20 hover:border-primary/40 transition-all duration-500 backdrop-blur-sm hover:shadow-xl hover:shadow-primary/10 overflow-hidden">
+      <div className="group cursor-pointer w-full h-full market-card-container">
+        <div className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-xl p-4 border border-primary/20 hover:border-primary/40 transition-all duration-500 backdrop-blur-sm hover:shadow-xl hover:shadow-primary/10 overflow-hidden h-full min-h-[140px]">
           {/* Background Pattern */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50"></div>
           <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-primary/10 to-transparent rounded-full blur-xl"></div>

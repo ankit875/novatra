@@ -8,9 +8,10 @@ import { secondsToDDHHMMSS, titleToIcon } from "@/helpers";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/scrollbar";
 
 // import required modules
-import { Autoplay, Navigation } from "swiper/modules";
+import { Autoplay, Navigation, Scrollbar } from "swiper/modules";
 import BaseModal from "@/modals/Base";
 import useDatabase from "@/hooks/useDatabase";
 import Skeleton from "react-loading-skeleton";
@@ -131,27 +132,30 @@ const Highlighted = () => {
         </div>
         {outcomes.length > 0 && (
           <p className="text-gray-400 text-sm">
-            {outcomes.length} Active Market{outcomes.length !== 1 ? 's' : ''} • Scroll to explore more
+            {outcomes.length} Active Market{outcomes.length !== 1 ? 's' : ''} • {outcomes.length > 5 ? 'Scroll or drag to explore more' : 'Scroll to explore more'}
           </p>
         )}
       </div>
 
-      {/* Enhanced Swiper with better scrolling for many items */}
+      {/* Enhanced Swiper with normal scrolling */}
       <Swiper
         spaceBetween={20}
         centeredSlides={false}
-        slidesPerView={5}
-        autoplay={outcomes.length <= 10 ? {
+        slidesPerView="auto"
+        autoplay={outcomes.length <= 5 ? {
           delay: 4000,
           disableOnInteraction: false,
         } : false} // Disable autoplay if too many items
-        loop={outcomes.length > 5} // Enable loop only if more than visible items
-        navigation={true}
+        loop={false}
+        navigation={{
+          enabled: outcomes.length > 5
+        }}
         scrollbar={{
           hide: false,
           draggable: true,
+          dragSize: 'auto'
         }}
-        modules={[Autoplay, Navigation]}
+        modules={[Autoplay, Navigation, Scrollbar]}
         className="mySwiper highlighted-swiper"
         breakpoints={{
           320: {
@@ -175,16 +179,17 @@ const Highlighted = () => {
             spaceBetween: 22,
           },
           1280: {
-            slidesPerView: 5.2,
+            slidesPerView: 5,
             spaceBetween: 24,
           },
           1536: {
-            slidesPerView: 6.2,
+            slidesPerView: 6,
             spaceBetween: 26,
           },
         }}
         style={{
           paddingBottom: '20px', // Space for scrollbar
+          overflow: 'visible'
         }}
       >
         {outcomes.length === 0 && (
