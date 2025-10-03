@@ -96,12 +96,12 @@ const Hero = () => {
                 Leverage cutting-edge AI to forecast market outcomes, propose new events, and claim rewards
               </p>
               
-              <div className="text-center">
+              {/* <div className="text-center">
                 <button className="btn flex items-center mx-auto">
                   Create New Market
                   <ArrowRight size={18} className="ml-2" />
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
 
