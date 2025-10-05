@@ -14,9 +14,9 @@ export const auth = defineAuth({
       },
       callbackUrls: [
         'http://localhost:3000/auth/profile',
-        'https://www.novatra.finance/auth/profile',
+        'https://www.nova-tra.xyz/auth/profile',
       ],
-      logoutUrls: ['http://localhost:3000/', 'https://www.novatra.finance'],
+      logoutUrls: ['http://localhost:3000/', 'https://www.nova-tra.xyz/'],
     }
   },
 });

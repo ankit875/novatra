@@ -100,7 +100,7 @@ const Hero = () => {
             <div className="heading mb-8 text-center">
               <div className="flex items-center justify-center mb-4">
                 <span className="inline-flex items-center bg-gradient-to-r from-secondary/20 to-secondary/10 px-4 py-2 rounded-full text-white font-semibold text-sm tracking-wide backdrop-blur-sm border border-secondary/20 animate-fade-in-up hover:scale-105 transition-all duration-300">
-                  🚀 AI-POWERED PREDICTIONS
+                  AI-POWERED PREDICTIONS
                 </span>
               </div>
               <h4 className="text-4xl lg:text-5xl font-black mb-6">

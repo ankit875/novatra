@@ -8,7 +8,7 @@ const Footer = () => {
                     <div className="items-center justify-between font-medium text-white flex flex-col md:flex-row space-y-4 md:space-y-0">
                         <div className='text-sm text-center md:text-left'>
                             <span className='hidden md:inline-flex'>Copyright </span>© {new Date().getFullYear()} {' '}
-                            <Link href="https://novatra.finance" className="text-secondary transition hover:text-primary font-semibold">
+                            <Link href="https://www.nova-tra.xyz/" className="text-primary font-semibold">
                                 Novatra
                             </Link>
                             <span className="text-gray-400 ml-2">- AI-Powered Prediction Markets</span>
@@ -30,6 +30,16 @@ const Footer = () => {
                                 </Link>
                             </div>
                         </div> 
+                    </div>
+                    <div className="mt-4 text-left">
+                        <div className="inline-flex items-center space-x-2 text-xs text-gray-500">
+                            <span>Built with</span>
+                            <span className="text-red-500 animate-pulse">♥</span>
+                            <span>by</span>
+                            <Link href="https://github.com/ankit875" target="_blank" className="font-semibold text-primary hover:text-secondary transition-colors duration-300">
+                                Ankit
+                            </Link>
+                        </div>
                     </div>
                     
                     <div className="mt-4 pt-4 border-t border-gray-700">
