@@ -290,7 +290,7 @@ const PlaceBetModal = ({ visible, close, bet, onchainMarketId = 1 }: any) => {
                         items={[
                           [
                             "Potential payout",
-                            `${minPayout.toLocaleString()}-${maxPayout.toLocaleString()} USDC`,
+                            `${(minPayout || 0).toLocaleString()}-${(maxPayout || 0).toLocaleString()} USDC`,
                           ],
                           ["Winning fee", "10%"],
                         ]}

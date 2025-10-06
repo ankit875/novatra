@@ -229,7 +229,7 @@ const ChatPanelMoveAgentKit = ({
 
                         {(messages.length === 0) && (
                             <div className=" flex flex-row  bg-secondary/10 mb-3 rounded-lg text-primary  text py-2 px-4  font-normal   ">
-                                💡 {` `}Start by saying 'Hello' or ask about the source data, like 'What are yield rates on Joule?'
+                                💡 {` `}Start by saying 'Hello' or ask about the source data, like 'What are yield rates on Joule gone?'
                             </div>
                         )}
 

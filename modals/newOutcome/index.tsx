@@ -74,13 +74,14 @@ const NewOutcomeModal = ({ visible, close, outcomes, marketData, currentRound, u
     const onNext = useCallback(async () => {
 
         if (current === (outcomes.length - 1)) {
+            dispatch({ current: 0, errorMessage: undefined })
             close()
             return
         }
 
         dispatch({ current: current + 1 })
 
-    }, [current])
+    }, [current, close])
 
     return (
         <BaseModal

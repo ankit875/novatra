@@ -5,37 +5,55 @@ import { FaTwitter, FaMedium, FaGithub } from 'react-icons/fa6';
 
 
 const DATA = [
-    {
-        id: 1,
-        question: 'What is the status of the project?',
-        answer: 'We are at the early stage and continuously improving the platform, your support by using even a small amount of tokens is crucial to our growth journey.',
-    },
-    {
-        id: 2,
-        question: 'What blockchain are you supporting?',
-        answer: 'We support Aptos chains as of now. We may consider expanding to other blockchains, especially Move-based blockchains.',
-    },
-    {
-        "id": 3,
-        "question": "Is the new version live?",
-        "answer": "Yes! The latest version is currently live on Aptos Testnet. You can try the AI-powered prediction markets and help us improve before the mainnet launch."
-    },
-    {
-        "id": 4,
-        "question": "How does AI work in DeFi?",
-        "answer": "AI is used to generate dynamic variables for DeFi services. For example, in prediction markets, the AI analyzes real-time market data and proposes outcomes with weighted probabilities, enhancing fair market resolution."
-    },
-    {
-        "id": 5,
-        "question": "Can anyone create a market?",
-        "answer": "Yes! You can propose new outcomes by interacting with the AI-Agent, which will validate and assign weights before finalization."
-    },
-    {
-        id: 6,
-        question: 'How can I contact your team?',
-        answer: 'DM us on Twitter/X account.',
-    },
-]
+  {
+    id: 1,
+    question: "What makes Novatra’s AI-Agent different from other prediction platforms?",
+    answer:
+      "Unlike traditional prediction markets, Novatra uses an AI-Agent that analyzes refines data, probabilities, and ensures fair, transparent market outcomes — all without manual bias.",
+  },
+  {
+    id: 2,
+    question: "How does Novatra ensure fairness in predictions?",
+    answer:
+      "The AI-Agent continuously reviews live market data and assigns outcome weights algorithmically, minimizing manipulation and maintaining a level playing field for all participants.",
+  },
+  {
+    id: 3,
+    question: "Do I need crypto to start predicting?",
+    answer:
+      "Yes, a small amount of tokens is required to place predictions. Your participation contributes to the prize pool and helps strengthen the ecosystem.",
+  },
+  {
+    id: 4,
+    question: "Can I create my own prediction topic?",
+    answer:
+      "Absolutely! You can propose your own outcomes — from token prices and rankings to event-driven predictions. The AI-Agent validates and weights them instantly.",
+  },
+  {
+    id: 5,
+    question: "How often does the AI-Agent update its analysis?",
+    answer:
+      "The AI-Agent periodically fetches data, re-evaluates market outcomes, and updates probabilities to reflect the latest market trends and conditions.",
+  },
+  {
+    id: 6,
+    question: "What data sources does the AI-Agent use?",
+    answer:
+      "It gathers insights from trusted on-chain and off-chain sources, including market feeds and analytic APIs, to ensure predictions remain accurate and transparent.",
+  },
+  {
+    id: 7,
+    question: "How are rewards distributed to winners?",
+    answer:
+      "Once a round concludes, the AI-Agent determines the winning outcome based on verified data, and payouts are automatically distributed according to each user’s stake.",
+  },
+  {
+    id: 8,
+    question: "What’s next for Novatra?",
+    answer:
+      "Our roadmap includes mainnet deployment, multi-chain support, and advanced AI integrations that will enable automated market creation and real-time social predictions.",
+  },
+];
 
 const Faq = () => {
 

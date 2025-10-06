@@ -215,9 +215,9 @@ const ChatPanel = ({
 
                     <div className="flex-grow overflow-y-auto h-[320px] space-y-2 px-2.5" ref={chatContainerRef}>
 
-                        {(messages.length !== 0) && (
+                        {(messages.length === 0) && (
                             <div className=" flex flex-row  bg-secondary/10 mb-3 rounded-lg text-primary  text py-2 px-4  font-normal   ">
-                                💡 {` `}Start by saying 'Hello' or ask about the source data, like 'What is the BTC price?'
+                                💡 {` `}Start by saying 'Hello' or ask about the source data, like 'What is the BTC price gone?'
                             </div>
                         )}
 
