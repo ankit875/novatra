@@ -140,7 +140,7 @@ const Faq = () => {
                 </div>
             </div>
             <div className='grid grid-cols-3 mt-[40px] p-2 mx-auto w-full max-w-[250px] '>
-                <Icon url="https://x.com/ankita340">
+                <Icon url="https://x.com/Novatra06">
                     <FaTwitter size={24} />
                 </Icon>
                 <Icon url="https://github.com/ankit875/novatra">
