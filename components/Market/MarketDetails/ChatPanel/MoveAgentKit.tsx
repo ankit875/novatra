@@ -216,7 +216,7 @@ const ChatPanelMoveAgentKit = ({
                             )}
                         </div>
                         <div className="font-semibold text-secondary my-auto mx-2.5 ">
-                            {onchainMarket ? "Active" : "Inactive"}
+                           Active
                         </div>
                     </div>
                 </div>
@@ -228,7 +228,7 @@ const ChatPanelMoveAgentKit = ({
                     <div className="flex-grow overflow-y-auto h-[320px] space-y-2 px-2.5" ref={chatContainerRef}>
 
                         {(messages.length === 0) && (
-                            <div className=" flex flex-row  bg-secondary/10 mb-3 rounded-lg text-secondary  text py-2 px-4  font-normal   ">
+                            <div className=" flex flex-row  bg-secondary/10 mb-3 rounded-lg text-primary  text py-2 px-4  font-normal   ">
                                 💡 {` `}Start by saying 'Hello' or ask about the source data, like 'What are yield rates on Joule?'
                             </div>
                         )}
@@ -247,7 +247,7 @@ const ChatPanelMoveAgentKit = ({
                                 <div key={index}>
                                     {item.role === "user" && (
                                         <div className="flex justify-end">
-                                            <div className="bg-secondary/10 text-secondary  text-sm p-3 rounded-lg max-w-lg">
+                                            <div className="bg-secondary/10 text-primary  text-sm p-3 rounded-lg max-w-lg">
                                                 {item.content}
                                             </div>
                                         </div>

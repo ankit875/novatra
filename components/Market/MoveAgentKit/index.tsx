@@ -15,7 +15,7 @@ const MARKET_ID = 2
 const MoveAgentKit = () => {
 
     const [modal, setModal] = useState(false)
-    const [activeTab, setActiveTab] = useState(0)
+    const [activeTab, setActiveTab] = useState(1)
     const [isLoading, setIsLoading] = useState(true)
     const [isTabAnimating, setIsTabAnimating] = useState(false)
 

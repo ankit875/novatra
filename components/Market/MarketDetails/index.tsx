@@ -18,7 +18,7 @@ const MARKET_ID = 3
 const MarketDetails = () => {
 
     const [modal, setModal] = useState(false)
-    const [activeTab, setActiveTab] = useState(0)
+    const [activeTab, setActiveTab] = useState(1)
     const [isTransitioning, setIsTransitioning] = useState(false)
     const [contentKey, setContentKey] = useState(0)
 
@@ -42,7 +42,6 @@ const MarketDetails = () => {
     }
 
     const currentRound = onchainMarket ? onchainMarket.round : 0
-    console.log({marketData},'----marketData--', marketData)
     const navItems = [
         { 
             id: 0, 

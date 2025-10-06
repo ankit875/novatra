@@ -308,59 +308,57 @@ const AvailableBets = ({ currentRound, marketData, onchainMarket, openBetModal }
                 </div>
             </div>
 
-            <div className="my-4 grid grid-cols-3 gap-3">
-                {loading === false && outcomesSorted.map((entry: any, index: number) => {
+            <div className="my-6 px-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800 pr-2">
+                    {loading === false && outcomesSorted.map((entry: any, index: number) => {
+                        return (
+                            <div key={index} className="flex">
+                                <OutcomeCard
+                                    index={index}
+                                    item={entry}
+                                    openBetModal={openBetModal}
+                                    openInfoModal={() => dispatch({ infoModal: entry })}
+                                    marketData={marketData}
+                                    current={current}
+                                    minOdds={entry.minOdds}
+                                    maxOdds={entry.maxOdds}
+                                    odds={entry.odds}
+                                    isPast={currentRound > current}
+                                />
+                            </div>
+                        )
+                    })}
 
-                    return (
-                        <div key={index}>
-                            <OutcomeCard
-                                index={index}
-                                item={entry}
-                                openBetModal={openBetModal}
-                                openInfoModal={() => dispatch({ infoModal: entry })}
-                                marketData={marketData}
-                                current={current}
-                                minOdds={entry.minOdds}
-                                maxOdds={entry.maxOdds}
-                                odds={entry.odds}
-                                isPast={currentRound > current}
-                            />
+                    {loading === true && <>
+                        <div className='overflow-hidden opacity-60'>
+                            <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
                         </div>
-                    )
-                })}
-
-                {loading === true && <>
-                    <div className='overflow-hidden   opacity-60'>
-                        <Skeleton height={120} />
-                    </div>
-                    <div className='overflow-hidden  opacity-60'>
-                        <Skeleton height={120} />
-                    </div>
-                    <div className='overflow-hidden  opacity-60'>
-                        <Skeleton height={120} />
-                    </div>
-                    <div className='overflow-hidden   opacity-60'>
-                        <Skeleton height={120} />
-                    </div>
-                    <div className='overflow-hidden  opacity-60'>
-                        <Skeleton height={120} />
-                    </div>
-                    <div className='overflow-hidden  opacity-60'>
-                        <Skeleton height={120} />
-                    </div> 
-                    <div className='overflow-hidden   opacity-60'>
-                        <Skeleton height={120} />
-                    </div>
-                    <div className='overflow-hidden  opacity-60'>
-                        <Skeleton height={120} />
-                    </div>
-                    <div className='overflow-hidden  opacity-60'>
-                        <Skeleton height={120} />
-                    </div>
-                </>
-
-                }
-
+                        <div className='overflow-hidden opacity-60'>
+                            <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
+                        </div>
+                        <div className='overflow-hidden opacity-60'>
+                            <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
+                        </div>
+                        <div className='overflow-hidden opacity-60'>
+                            <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
+                        </div>
+                        <div className='overflow-hidden opacity-60'>
+                            <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
+                        </div>
+                        <div className='overflow-hidden opacity-60'>
+                            <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
+                        </div> 
+                        <div className='overflow-hidden opacity-60'>
+                            <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
+                        </div>
+                        <div className='overflow-hidden opacity-60'>
+                            <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
+                        </div>
+                        <div className='overflow-hidden opacity-60'>
+                            <Skeleton height={120} baseColor="#1C2331" highlightColor="#7780A1" />
+                        </div>
+                    </>}
+                </div>
             </div>
         </>
     )
@@ -406,23 +404,27 @@ const OutcomeCard = ({ index, item, current, marketData, openInfoModal, openBetM
                     <span className="font-medium">Resolves:</span> {new Date(Number(item.resolutionDate) * 1000).toLocaleDateString()}
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-3">
                     <div className="bg-gray-700/30 rounded-lg p-3">
-                        <div className="flex items-center space-x-1">
-                            <span className="text-sm">🔥</span>
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-2">
+                                <span className="text-sm">🔥</span>
+                                <span className="text-xs text-gray-400">Bet Volume</span>
+                            </div>
                             <span className="text-white font-semibold text-sm">{item.totalBetAmount || 0} USDC</span>
                         </div>
-                        <div className="text-xs text-gray-400 mt-1">Bet Volume</div>
                     </div>
                     
                     <div className="bg-gray-700/30 rounded-lg p-3">
-                        <div className="flex items-center space-x-1">
-                            <span className="text-sm">🔢</span>
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-2">
+                                <span className="text-sm">⚖️</span>
+                                <span className="text-xs text-gray-400">Weight</span>
+                            </div>
                             <span className="text-white font-semibold text-sm">
                                 {item.weight ? `${item.weight.toLocaleString()}%` : "N/A"}
                             </span>
                         </div>
-                        <div className="text-xs text-gray-400 mt-1">Weight</div>
                     </div>
                 </div>
 

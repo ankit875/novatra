@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 
 // import required modules
-import { Navigation, Scrollbar } from "swiper/modules";
+import { Navigation, Scrollbar, Autoplay } from "swiper/modules";
 import BaseModal from "@/modals/Base";
 import useDatabase from "@/hooks/useDatabase";
 import Skeleton from "react-loading-skeleton";
@@ -42,23 +42,34 @@ const Hero = () => {
         close={() => setModal(false)}
         maxWidth="max-w-2xl"
       >
-        <p className="text-center text-sm sm:text-lg mt-4 mb-4">
-          We&apos;ve made huge updates to make your prediction experience more
-          fun:
+        <p className="text-center text-sm sm:text-lg mt-4 mb-6">
+          Experience the future of prediction markets with our AI-powered platform:
         </p>
-        <div className="text-white/70 text-sm sm:text-lg">
-          <li>
-            <b>Endlessly Flexible:</b> Propose any outcomes with AI tracking and
-            revealing the results automatically
-          </li>
-          <li>
-            <b>Ever-Increasing Payouts:</b> Unclaimed amounts adding to the next
-            round&apos;s prize{" "}
-          </li>
-          <li>
-            <b>Robust AI:</b> With OpenAI GPT-4 and supported by AWS AI
-            Services{" "}
-          </li>
+        <div className="text-white/70 text-sm sm:text-lg space-y-3">
+          <div className="flex items-start space-x-3">
+            <span className="text-primary text-lg">🎯</span>
+            <div>
+              <b className="text-white">Custom Prediction Markets:</b> Create prediction markets on any topic that matters to you
+            </div>
+          </div>
+          <div className="flex items-start space-x-3">
+            <span className="text-primary text-lg">🤖</span>
+            <div>
+              <b className="text-white">AI-Powered Agents:</b> Leverage intelligent agents to propose and track outcomes automatically
+            </div>
+          </div>
+          <div className="flex items-start space-x-3">
+            <span className="text-primary text-lg">💰</span>
+            <div>
+              <b className="text-white">Weighted Payouts:</b> Earn rewards based on the accuracy of your forecasts
+            </div>
+          </div>
+          <div className="flex items-start space-x-3">
+            <span className="text-primary text-lg">💳</span>
+            <div>
+              <b className="text-white">USDC Wagers:</b> Secure, stable currency wagering with multi-device authentication
+            </div>
+          </div>
         </div>
 
         <div className="text-center mt-5">
@@ -70,12 +81,11 @@ const Hero = () => {
             type="button"
             className="btn"
           >
-            Close
+            Get Started
           </button>
         </div>
         <p className="text-center mx-auto max-w-full sm:max-w-md text-xs sm:text-sm text-secondary/90 font-semibold mt-4 mb-2  ">
-          This new version is currently available on the Aptos Testnet, with
-          Mainnet and Sui launching soon
+          Currently available on Aptos Testnet • Mainnet and Sui launching soon
         </p>
       </BaseModal>
       <section>
@@ -112,13 +122,21 @@ const Hero = () => {
                              with Novatra AI
                         </span>
                     </h4>
-             
-              <p className={`text-xl text-gray-300 font-medium max-w-2xl mx-auto leading-relaxed mb-8 transition-all duration-1000 ${
+
+                    <h4 className="text-4xl lg:text-5xl font-black mb-6">
+                        <span className="bg-white">
+                          Predict the Future, Earn Big with Novatra
+                        </span>
+                       
+                    </h4>
+
+             {/* <h4 className="text-4xl lg:text-5xl text-primary mb-6 mt-6"> </h4> */}
+              <p className={`text-xl text-gray-300 font-medium max-w-2xl mx-auto leading-relaxed mb-6 transition-all duration-1000 ${
                 textVisible 
                   ? 'opacity-100 translate-y-0' 
                   : 'opacity-0 translate-y-4'
               } hover:text-white`}>
-                Leverage cutting-edge AI to forecast market outcomes, propose new events, and claim rewards
+               Tired of feeling powerless in the face of market uncertainty? Novatra puts the power of prediction in your hands.
               </p>
               
               {/* <div className="text-center">
@@ -130,11 +148,182 @@ const Hero = () => {
             </div>
           </div>
 
+          {/* Product Benefits Section */}
+          <ProductBenefits />
+
+          {/* Target Audience Section */}
+          <TargetAudience />
+
           {/* Highlighted Predictions Section */}
           <Highlighted />
         </div>
       </section>
     </>
+  );
+};
+
+const ProductBenefits = () => {
+  const benefits = [
+    {
+      icon: "🎯",
+      title: "Custom Prediction Markets",
+      description: "Create prediction markets on any topic that matters to you",
+      gradient: "from-primary/20 to-primary/10",
+      borderColor: "border-primary/20",
+      hoverBorder: "hover:border-primary/40"
+    },
+    {
+      icon: "🤖",
+      title: "AI-Powered Agents",
+      description: "Leverage intelligent agents to propose and track outcomes automatically",
+      gradient: "from-secondary/20 to-secondary/10", 
+      borderColor: "border-secondary/20",
+      hoverBorder: "hover:border-secondary/40"
+    },
+    {
+      icon: "💰",
+      title: "Weighted Payouts",
+      description: "Earn rewards based on the accuracy of your forecasts",
+      gradient: "from-primary/20 to-primary/10",
+      borderColor: "border-primary/20", 
+      hoverBorder: "hover:border-primary/40"
+    },
+    {
+      icon: "⚖️",
+      title: "Dispute Resolution",
+      description: "Fair resolution system with full stake refunds when needed",
+      gradient: "from-secondary/20 to-secondary/10",
+      borderColor: "border-secondary/20",
+      hoverBorder: "hover:border-secondary/40"
+    },
+    {
+      icon: "💳",
+      title: "USDC Wagers",
+      description: "Secure, stable currency wagering with multi-device authentication",
+      gradient: "from-primary/20 to-primary/10",
+      borderColor: "border-primary/20",
+      hoverBorder: "hover:border-primary/40"
+    }
+  ];
+
+  return (
+    <div className="mt-16 px-6">
+      <div className="container mx-auto">
+        <div className="heading mb-12 text-center">
+          <div className="flex items-center justify-center mb-4">
+            <span className="inline-flex items-center bg-gradient-to-r from-primary/20 to-primary/10 px-4 py-2 rounded-full text-primary font-semibold text-sm tracking-wide backdrop-blur-sm border border-primary/20 animate-fade-in-up hover:scale-105 transition-all duration-300">
+              PLATFORM BENEFITS
+            </span>
+          </div>
+          <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+            Why Choose Novatra?
+          </h3>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            Experience the future of prediction markets with cutting-edge AI technology
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {benefits.map((benefit, index) => (
+            <div
+              key={index}
+              className={`group cursor-pointer h-full animate-fade-in-up`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className={`relative bg-gradient-to-br ${benefit.gradient} to-transparent rounded-xl p-6 border ${benefit.borderColor} ${benefit.hoverBorder} transition-all duration-500 backdrop-blur-sm hover:shadow-xl hover:shadow-primary/10 overflow-hidden h-full hover:scale-105`}>
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50 animate-shimmer"></div>
+                <div className="relative">
+                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    {benefit.icon}
+                  </div>
+                  <h4 className="text-white font-bold text-lg mb-3 group-hover:text-primary transition-colors duration-300">
+                    {benefit.title}
+                  </h4>
+                  <p className="text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors duration-300">
+                    {benefit.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TargetAudience = () => {
+  const audiences = [
+    {
+      icon: "📈",
+      title: "Seasoned Traders",
+      description: "Turn your market knowledge into cold, hard cash with sophisticated prediction tools",
+      gradient: "from-primary/20 to-primary/10",
+      borderColor: "border-primary/20",
+      hoverBorder: "hover:border-primary/40"
+    },
+    {
+      icon: "📊", 
+      title: "Data Enthusiasts",
+      description: "Experience the thrill of on-chain betting supercharged by AI-driven insights",
+      gradient: "from-secondary/20 to-secondary/10",
+      borderColor: "border-secondary/20", 
+      hoverBorder: "hover:border-secondary/40"
+    },
+    {
+      icon: "🔮",
+      title: "Future Forecasters", 
+      description: "Take your prediction skills to the next level and start earning big",
+      gradient: "from-primary/20 to-primary/10",
+      borderColor: "border-primary/20",
+      hoverBorder: "hover:border-primary/40"
+    }
+  ];
+
+  return (
+    <div className="mt-16 px-6">
+      <div className="container mx-auto">
+        <div className="heading mb-12 text-center">
+          <div className="flex items-center justify-center mb-4">
+            <span className="inline-flex items-center bg-gradient-to-r from-secondary/20 to-secondary/10 px-4 py-2 rounded-full text-primary font-semibold text-sm tracking-wide backdrop-blur-sm border border-secondary/20 animate-fade-in-up hover:scale-105 transition-all duration-300">
+              WHO IS NOVATRA FOR?
+            </span>
+          </div>
+          <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+            Empowering Every Prediction Style
+          </h3>
+          
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+            Whether you're a seasoned trader, a data enthusiast, or just someone who loves to forecast the future, Novatra empowers you to turn your market knowledge into profits
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {audiences.map((audience, index) => (
+            <div
+              key={index}
+              className={`group cursor-pointer h-full animate-fade-in-up`}
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className={`relative bg-gradient-to-br ${audience.gradient} to-transparent rounded-xl p-6 border ${audience.borderColor} ${audience.hoverBorder} transition-all duration-500 backdrop-blur-sm hover:shadow-xl hover:shadow-primary/10 overflow-hidden h-full hover:scale-105`}>
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50 animate-shimmer"></div>
+                <div className="relative text-center">
+                  <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    {audience.icon}
+                  </div>
+                  <h4 className="text-white font-bold text-lg mb-3 group-hover:text-primary transition-colors duration-300">
+                    {audience.title}
+                  </h4>
+                  <p className="text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors duration-300">
+                    {audience.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -148,8 +337,8 @@ const Highlighted = () => {
 
   return (
     <div className="mt-16 px-6">
-      <div className="container mx-auto">
-        <div className="heading mb-8 text-center">
+      <div className="container mx-auto max-w-7xl">
+        <div className="heading mb-12 text-center">
         <div className="flex items-center justify-center mb-4">
           <span className="inline-flex items-center bg-gradient-to-r from-primary/20 to-primary/10 px-4 py-2 rounded-full text-primary font-semibold text-sm tracking-wide backdrop-blur-sm border border-primary/20 animate-fade-in-up hover:scale-105 transition-all duration-300">
              HIGHLIGHTED PREDICTIONS
@@ -157,15 +346,21 @@ const Highlighted = () => {
         </div>
         {outcomes.length > 0 && (
           <p className="text-gray-400 text-sm animate-fade-in-up animate-stagger-1 hover:text-gray-300 transition-colors duration-300">
-            {outcomes.length} Active Market{outcomes.length !== 1 ? 's' : ''} • {outcomes.length > 5 ? 'Scroll or drag to explore more' : 'Scroll to explore more'}
+            {outcomes.length} Active Market{outcomes.length !== 1 ? 's' : ''} • Scroll or drag to explore more
           </p>
         )}
       </div>
 
-        {/* Simple Swiper with responsive display */}
+        {/* Enhanced Swiper with larger cards */}
         <Swiper
-          spaceBetween={20}
-          slidesPerView={1}
+          spaceBetween={32}
+          slidesPerView={3}
+          speed={1500}
+          autoplay={{
+            delay: 6000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          }}
           navigation={{
             enabled: outcomes.length > 3
           }}
@@ -173,28 +368,39 @@ const Highlighted = () => {
             hide: false,
             draggable: true
           }}
-          modules={[Navigation, Scrollbar]}
+          modules={[Navigation, Scrollbar, Autoplay]}
           className="mySwiper highlighted-swiper"
           breakpoints={{
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
             640: {
               slidesPerView: 2,
-              spaceBetween: 20,
+              spaceBetween: 24,
             },
             768: {
               slidesPerView: 3,
-              spaceBetween: 20,
+              spaceBetween: 28,
             },
             1024: {
-              slidesPerView: 4,
-              spaceBetween: 20,
+              slidesPerView: 3,
+              spaceBetween: 32,
             },
             1280: {
-              slidesPerView: 5,
-              spaceBetween: 20,
+              slidesPerView: 3,
+              spaceBetween: 32,
+            },
+            1440: {
+              slidesPerView: 3,
+              spaceBetween: 32,
             },
           }}
         style={{
-          paddingBottom: '20px' // Space for scrollbar
+          paddingBottom: '32px', // Space for scrollbar
+          paddingLeft: '16px',   // Left padding
+          paddingRight: '16px',  // Right padding
+          minHeight: '220px'     // Ensure consistent height
         }}
       >
         {outcomes.length === 0 && (
