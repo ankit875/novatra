@@ -1,28 +1,30 @@
-# Novatra
+# Novatra — AI‑Powered Prediction Markets
 
-An **AI-powered, on-chain prediction market** with round-based betting and **dynamic, weighted payouts**. Create markets, propose outcomes with the help of an AI agent, and settle rounds using trusted data sources (e.g., CoinMarketCap).
+**Predict, Stake, and Earn with Novatra AI.** Create custom, on‑chain prediction markets, leverage AI‑powered agents to propose & track outcomes, and enjoy **weighted payouts** that reward accurate forecasting. Currently available on **Aptos Testnet** — Mainnet and **Sui** support coming soon.
+
+**Contract**
+- https://github.com/ankit875/novatra/tree/develop/contracts/sources
+---
+## Architecture
+
+![Architecture](./public/assets/architecture.png)
+
+The Novatra platform consists of three main layers:
+
+1. **Frontend Layer** — Next.js application with React components, providing the user interface for market creation, predictions, and portfolio management
+2. **AI Layer** — Intelligent agents that propose outcomes, track market developments, and assist with dispute resolution
+3. **Blockchain Layer** — Aptos Move smart contracts handling market logic, USDC transactions, weighted payouts, and on-chain governance
 
 ---
 
-## What Novatra Does
+## Key Features
 
-- **Open Markets** – Anyone can spin up a market (e.g., "Will BTC hit $100k by Friday?", "Will SOL overtake XRP next week?").
-- **AI-Assist** – GPT-powered agents help propose/curate outcomes, assign weights, and keep tabs on data.
-- **Weighted Payouts** – Winners split the round's pool **proportionally to AI-assigned outcome weights**.
-- **Dispute Handling** – Unclear outcomes are marked as **disputed**; those stakes are fully refunded and the dispute pot recycles into the next round.
-- **USDC Support** – Wagers use USDC for clean accounting and easy UX.
-- **Auth** – Email/Google sign-in via **AWS Amplify** for tracking positions across devices.
-
----
-
-## Architecture (High Level)
-
-- **Frontend:** Next.js (Pages Router) + AWS Amplify Auth
-- **AI Agents:**
-	- *Interactive* agent helps users craft outcomes, place bets, and explore insights.
-	- *Automated* agent monitors data, assigns weights, marks results, and finalizes rounds.
-- **On-Chain:** Aptos **Move** contracts manage the market pool, positions, and payouts.
-- **Data Flow:** Agents crawl trusted sources → summarize → update weights/outcomes → send results on-chain at round end.
+- **Custom Markets** — Create markets on any topic that matters to you.
+- **AI Agents** — Intelligent agents can propose outcomes and track them automatically.
+- **Weighted Payouts** — Rewards scale with the accuracy/weight of the forecast.
+- **Fair Disputes** — If a market can’t be resolved deterministically, stakes are refunded and the pot can roll over.
+- **USDC Wagers + Multi‑Device Auth** — Stable accounting and secure access.
+- **Aptos First** — Built for Aptos (Move). Testnet live; Mainnet & Sui on the roadmap.
 
 ---
 
@@ -47,84 +49,84 @@ novatra/
 └─ README.md
 ```
 
-> If you generated your Next.js app with a `src/` directory, just put `pages/` inside `src/` and adjust imports accordingly.
+## AI Layer (high level)
+
+- Agents help **propose** and **track** outcomes automatically.
+- Weights (probabilities) drive **proportional payouts** to winners.
+- Unclear outcomes can be **disputed**; stakes are refunded and may roll into the next round.
+
+> Backends commonly use AppSync/Lambda or can be swapped for Supabase; on-chain logic targets **Aptos (Move)**.
 
 ---
 
-## Quick Start (Frontend)
+## Getting Started
 
-You can use `create-next-app` and **select Pages Router** when prompted.
+### Prerequisites
+- **Node 18+** (or **Bun** if you prefer)
+- **pnpm**/**yarn**/**npm** (project is Bun‑friendly)
+
+### Install & Run
 
 ```bash
-# Create a Next.js project
-npx create-next-app@latest web
+# 1) Install deps
+bun install        # or: npm i | yarn | pnpm i
 
-# During prompts:
-# - Use TypeScript?           → Yes (recommended)
-# - Use App Router?           → No
-# - Use Pages Router?         → Yes
-# - Use src/ directory?       → Your choice (both are supported)
-# - Customize import alias?   → No (keeps "@/..." by default)
-
-cd web
-npm run dev
-# http://localhost:3000
+# 2) Start dev
+bun dev            # or: npm run dev | yarn dev | pnpm dev
 ```
-
-### Authentication (AWS Amplify)
-
-1. Create an Amplify app & auth (Email/Google).
-2. Download amplify_outputs.json after connecting your GitHub repo to AWS Amplify.
-3. Place it in your web root (or wherever your app loads Amplify config).
-
-Add any required API keys for your AI provider(s) to Amplify's secret manager.
 
 ---
 
-## AI Agent Notes
+## Environment
 
-- **Interactive Agent** – system/developer prompts + retrieval context; helps users propose outcomes & inspect live data.
-- **Automated Agent** – scheduled runs to:
-	- pull trusted market data,
-	- (re)assign outcome weights,
-	- mark winners/disputes at round end,
-	- call smart contract entry functions to finalize and resolve.
+Create a `.env.local` with the following (adjust to your infra):
 
-Agents should persist their final decisions (weights, winners, disputes) on-chain at round cut-off.
+```
+NEXT_PUBLIC_NETWORK=aptos-testnet
+NEXT_PUBLIC_API_URL=...              # GraphQL/API base
+NEXT_PUBLIC_USDC_ADDRESS=...         # USDC token address (testnet)
+```
 
 ---
 
-## ⛓️ Smart Contracts (Aptos Move)
+## Scripts
 
-### Modules (under novatra_market)
+- `dev` — start Next.js dev server
+- `build` — production build
+- `start` — run production server
+- `lint` — lint sources
 
-- **base_fungible_asset** – Managed FA with owner capabilities (mint/transfer/burn/freeze).
-- **mock_usdc_fa** – Lightweight USDC-like token for local testing.
-- **generalized** – The core prediction market (rounds, outcomes, positions, payouts, disputes).
+_Add the exact commands to `package.json` as needed._
 
-### Setup & Tests
+---
 
-```bash
-cd contracts
+## Contract Addresses
 
-# Run unit tests
-aptos move test
+| Component | Address |
+|-----------|---------|
+| Package ID | `0x896f7c28432dc223478a0ff3e9325d23f97e8bc261c1896eab85ee20c1f66183` |
+| Mock USDC | `0x74432d8fdde5be368d1fe3b717046e78bd712cc143000ccba136d2a16eb273be` |
 
-# Publish (example; replace addresses/profiles)
-aptos move publish \
-	--profile default \
-	--named-addresses novatra_market=0xYOUR_DEPLOYER_ADDR
-```
 
-For detailed instructions on deploying to AWS cloud, refer to the [deployment section](https://docs.amplify.aws/nextjs/start/quickstart/nextjs-app-router-client-components/#deploy-a-fullstack-app-to-aws).
+## Roadmap
 
-## Example (Aptos Testnet)
+- [x] Aptos Testnet
+- [ ] Aptos Mainnet
+- [ ] Sui support
+- [ ] In‑app AI agent surface for proposing outcomes
+- [ ] On‑chain dispute evidence viewer
+- [ ] Enhanced market discovery & search
 
-Use your own deployment addresses; these are placeholders from earlier development.
+---
 
-### Aptos Testnet
+## Contributing
 
-| Component Name | ID/Address |
-| --- | --- |
-| Package ID | 0x896f7c28432dc223478a0ff3e9325d23f97e8bc261c1896eab85ee20c1f66183 |
-| Mock USDC | 0x74432d8fdde5be368d1fe3b717046e78bd712cc143000ccba136d2a16eb273be |
+1. Fork the repo
+2. Create a feature branch: `feat/your-feature`
+3. Open a PR with a clear description and screenshots if UI changes
+
+---
+
+## License
+
+MIT © Novatra
